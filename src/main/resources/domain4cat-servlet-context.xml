@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:mvc="http://www.springframework.org/schema/mvc"
+  xmlns:util="http://www.springframework.org/schema/util"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+                http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+                http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+
+        <!-- DispatcherServlet Context: defines this servlet's request-processing 
+                infrastructure -->
+
+    <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="org.springframework.dao.DataAccessException">
+                    dataAccessFailure
+                </prop>
+                <prop key="java.lang.Exception">
+                        error_all
+                </prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="2097152"/>
+        <property name="uploadTempDir" value="/temp/" />
+    </bean>
+<mvc:annotation-driven />
+        <!-- Enables the Spring MVC @Controller programming model --><!-- 默认的注解映射支持 -->
+
+        <!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+                up static resources in the ${webappRoot}/resources directory
+        <mvc:resources mapping="/resources/**" location="/resources/" /> -->
+        <!-- 
+         -->
+        <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+                <!-- 设置为true以忽略对Accept Header的支持-->
+                <property name="ignoreAcceptHeader" value="true" />
+                <property name="defaultContentType" value="text/html" />
+                <!-- 扩展名至mimeType的映射,即 /user.json => application/json -->
+    <property name="favorPathExtension" value="true"/>
+                <!-- 用于开启 /userinfo/123?format=json 的支持 -->
+                <property name="favorParameter" value="false" />
+                <property name="mediaTypes">
+                        <description>favorPathExtension, favorParameter是true时才起作用</description>
+                        <map>
+                                <entry key="json" value="application/json" />
+                                <entry key="xml" value="application/xml" />
+                                <entry key="atom" value="application/atom+xml" />
+                        </map>
+                </property>
+                <property name="viewResolvers">
+                        <list>
+                                <bean class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
+                                <ref bean="viewResolver" />
+                        </list>
+                </property>
+                <property name="defaultViews">
+                        <list>
+                                <bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView">
+                                        <property name="objectMapper">
+                                                <bean class="org.codehaus.jackson.map.ObjectMapper">
+                                                        <property name="dateFormat">
+                                                                <bean class="java.text.SimpleDateFormat">
+                                                                        <constructor-arg value="yyyy-MM-dd" />
+                                                                </bean>
+                                                        </property>
+                                                </bean>
+                                        </property>
+                                </bean>
+                                <bean class="org.springframework.web.servlet.view.xml.MarshallingView" >
+                                    <property name="marshaller">
+                                        <bean class="org.springframework.oxm.xstream.XStreamMarshaller"/>
+                                    </property>
+                                </bean>
+                        </list>
+                </property>
+        </bean>
+    <!-- View Resolver for JSPs -->
+        <!-- Resolves views selected for rendering by @Controllers to .jsp resources 
+                in the /WEB-INF/views directory -->
+        <!-- 解析视图，解析后的视图类型通过viewClass属性指定，如果classpath中有jstl库，不用指定viewClass会将视图名称解析为JstlView类型的视图 
+                发现一个问题：当根目录下有index.jsp文件时就不会找处理映射到根目录的控制器 -->
+  <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+      <!-- <property name="requestContextAttribute" value="rc"/> -->
+      <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+      <property name="prefix" value="/WEB-INF/jsp/"/>
+      <property name="suffix" value=".jsp"/>
+  </bean>
+        <!-- 将拦截到的静态资源请求传递给容器,似乎是这个意思 -->
+        <mvc:default-servlet-handler/>
+        <!-- 扫描controller 可以配置多个包 DefaultAnnotationHandlerMapping和AnnotationMethodHandlerAdapter分别处理类级别和 
+                方法级别上的@RequestMapping注解，是默认在web应用上下文中注册好的。 当显式的注册了其他处理程序映射或处理程序适配器后就不会自动注册了， 
+                上面定义了过滤静态资源的处理程序，需要主动注册 <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" 
+                /> <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" 
+                /> -->
+        <context:component-scan base-package="net.noday.demo.springmvc">
+                <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        </context:component-scan>
+        <!-- 用于定义ParameterizableViewController。根据路径找到相应的视图 --><!-- Convenient way to map URLs to JSPs w/o having a Controller
+        <mvc:view-controller path="/dd" view-name="redirect:index.html" />
+    <mvc:view-controller path="/admin/activeUsers" view-name="admin/activeUsers"/>
+    <mvc:view-controller path="/mainMenu" view-name="mainMenu"/> -->
+
+</beans>
