@@ -13,7 +13,7 @@
         
 <!-- Root Context: defines shared resources visible to all other web components -->
 <!-- 扫描注解管理bean，排除控制器 -->
-	<context:component-scan base-package="net.noday.domain4cat">
+	<context:component-scan base-package="net.noday.d4c">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 <!-- 数据源 -->
@@ -28,6 +28,29 @@
 		<property name="initialPoolSize" value="${jdbc.initialPoolSize}" />
 		<property name="maxIdleTime" value="${jdbc.maxIdleTime}" />             
 	</bean>
+<!-- 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close"> 
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.user}" />
+		<property name="password" value="${jdbc.password}" />
+		 
+		<property name="filters" value="stat" />
+		
+		<property name="maxActive" value="20" />
+		<property name="initialSize" value="1" />
+		<property name="maxWait" value="60000" />
+		<property name="minIdle" value="1" />
+		
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+		
+		<property name="validationQuery" value="SELECT 'x'" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+		 
+		<property name="poolPreparedStatements" value="true" />
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="50" />
+	</bean> -->
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
