@@ -61,7 +61,7 @@
                         <bean class="org.codehaus.jackson.map.ObjectMapper" >
                             <property name="dateFormat" >
                                 <bean class="java.text.SimpleDateFormat" >
-                                    <constructor-arg value="yyyy-MM-dd" />
+                                    <constructor-arg value="yyyy-MM-dd hh:mm:ss" />
                                 </bean>
                             </property>
                         </bean>
@@ -69,7 +69,9 @@
                 </bean>
                 <bean class="org.springframework.web.servlet.view.xml.MarshallingView">
                     <property name="marshaller">
-                        <bean class="org.springframework.oxm.xstream.XStreamMarshaller" />
+                        <bean class="org.springframework.oxm.xstream.XStreamMarshaller">
+                            <property name="autodetectAnnotations" value="true" />
+                        </bean>
                     </property>
                 </bean>
             </list>
@@ -87,9 +89,15 @@
              解析视图，解析后的视图类型通过viewClass属性指定，如果classpath中有jstl库，不用指定viewClass会将视图名称解析为JstlView类型的视图 
                 发现一个问题：当根目录下有index.jsp文件时就不会找处理映射到根目录的控制器
     -->
-
+	<bean id="ftlViewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+	    <property name="order" value="100" />
+	    <property name="cache" value="true" />
+	    <property name="prefix" value="" />
+	    <property name="suffix" value=".ftl" />
+	    <property name="contentType" value="text/html; charset=utf-8" />
+	</bean>
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="order" value="100" />
+        <property name="order" value="200" />
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
         <property name="prefix" value="/WEB-INF/jsp/" />
         <property name="suffix" value=".jsp" />
