@@ -17,6 +17,7 @@
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 <!-- 数据源 -->
+	<util:propertiesid="jdbcProperties" location="classpath:org/example/config/jdbc.properties"/>
 	<context:property-placeholder location="classpath:config.properties"/>
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
 		<property name="driverClass" value="${jdbc.driver}" />
