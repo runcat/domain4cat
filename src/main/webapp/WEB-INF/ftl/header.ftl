@@ -4,8 +4,8 @@
         <span class="pull-menu"></span>
 
         <a href="/"><span class="element brand">
-            <img class="place-left" src="images/logo32.png" style="height: 20px">
-            Metro UI CSS <small>0.15.8.11</small>
+            <img class="place-left" src="img/logo.png" style="height: 20px">
+            域猫 <small>域名共享</small>
         </span></a>
 
         <div class="divider"></div>

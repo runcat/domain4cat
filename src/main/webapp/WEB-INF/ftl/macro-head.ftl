@@ -10,5 +10,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="${contextPath}/css/modern.css" rel="stylesheet"/>
 <link href="${contextPath}/css/modern-responsive.css" rel="stylesheet"/>
+<link href="${contextPath}/css/site.css" rel="stylesheet"/>
 <link rel="shortcut icon" type="image/png" href="${contextPath}/img/favicon.ico" />
 </#macro>

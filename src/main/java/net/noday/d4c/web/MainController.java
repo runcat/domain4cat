@@ -57,7 +57,7 @@ public class MainController extends BaseController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Model model) {
 		
-		return page(1, model);
+		return "index";
 	}
 	
 	@RequestMapping(value = "/p/{index}", method = RequestMethod.GET)
