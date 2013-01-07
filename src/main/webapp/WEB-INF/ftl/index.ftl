@@ -26,20 +26,32 @@
 
                                     <div class="slide" id="slide1" style="display: block; left: 0px; ">
                                         <h2>申请二级域名</h2>
-
-													<div class="input-control text span2">
-												        <input type="text" />
-												        <button class="helper"></button>
-												    </div>
-                                        <div class="input-control select span3">
-												        <select>
-												            <option>11</option>
-												            <option>11</option>
-												            <option>11</option>
-												        </select>
-												    </div>
+													<div class="row">
+														<div class="span8">
+															<div class="input-control text span2">
+														        <input type="text" />
+														        <button class="helper"></button>
+														    </div>
+		                                        <div class="input-control select span3">
+														        <select>
+														            <option>11</option>
+														            <option>11</option>
+														            <option>11</option>
+														        </select>
+														    </div>
+														</div>
+													</div>
 												    <br>
                                         <input type="submit" value="Submit"/>
+                                        <div class="notices">
+												        <div class="bg-color-red">
+												            <a href="#" class="close"></a>
+												            <div class="notice-icon"> <img/> </div>
+												            <div class="notice-image"> <img/> </div>
+												            <div class="notice-header"> ... </div>
+												            <div class="notice-text"> ... </div>
+												        </div>
+												    </div>
                                     </div>
 
                                     <div class="slide" id="slide2" style="display: block; left: -580px; ">
@@ -106,7 +118,7 @@
                 		</div>
                 		<div class="row">
 	                    <div class="span4 bg-color-red">
-	                        <img src="images/simple.png" class="place-right" style="margin: 10px;">
+	                        <img src="images/logo32.png" class="place-right" style="margin: 10px;height: 48px;">
 	                        <h2 class="fg-color-white">&nbsp;详细管理面板</h2>
 	                    </div>
 								<div class="span4 bg-color-yellow">
