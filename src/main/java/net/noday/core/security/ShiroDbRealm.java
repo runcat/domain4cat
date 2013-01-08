@@ -22,12 +22,12 @@ import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 
-import net.noday.core.model.User;
 import net.noday.core.security.CaptchaUsernamePasswordToken;
 import net.noday.core.security.IncorrectCaptchaException;
 import net.noday.core.service.SecurityService;
 import net.noday.core.utils.Captcha;
 import net.noday.core.utils.Digests;
+import net.noday.d4c.model.Domain;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -61,11 +61,11 @@ public class ShiroDbRealm extends AuthorizingRealm {
 
 	public static final String LOGINFAILEDCOUNTKEY = "longin_failed_count";
 	
-	protected SecurityService service;
+	protected SecurityService<Domain> service;
 	private CredentialsMatcher  hashedCredentialsMatcher;
 	private CredentialsMatcher  allowAllCredentialsMatcher;
 
-	public void setService(SecurityService service) {
+	public void setService(SecurityService<Domain> service) {
 		this.service = service;
 	}
 
@@ -88,7 +88,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 				throw new IncorrectCaptchaException("验证码错误");
 			}
 			
-			User user = service.findUserByLoginName(token.getUsername());
+			Domain user = service.findUserByLoginName(token.getUsername());
 			if (user != null) {
 				return new SimpleAuthenticationInfo(new ShiroUser(user.getId(), user.getEmail(), user.getName()),// 为什么不直接用User呐？
 						user.getPassword(), ByteSource.Util.bytes(Base64.decode(user.getSalt())), getName());
@@ -97,7 +97,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 			setCredentialsMatcher(allowAllCredentialsMatcher);
 			UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
 			// TODO 验证 根据token
-			User user = service.findUserByLoginName(token.getUsername());
+			Domain user = service.findUserByLoginName(token.getUsername());
 			return new SimpleAuthenticationInfo(new ShiroUser(user.getId(), user.getEmail(), user.getName()), user.getPassword(), getName());
 		}
 		return null;
@@ -108,13 +108,13 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	 */
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-		ShiroUser shiroUser = (ShiroUser) principals.getPrimaryPrincipal();
-		User user = service.findUserByLoginName(shiroUser.loginName);
+//		ShiroUser shiroUser = (ShiroUser) principals.getPrimaryPrincipal();
+//		Domain user = service.findUserByLoginName(shiroUser.loginName);
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-		info.addRole(user.getRole());
-		if ("admin@noday.net".equalsIgnoreCase(user.getEmail())) {
-			info.addStringPermission("oper");
-		}
+//		info.addRole(user.getRole());
+//		if ("admin@noday.net".equalsIgnoreCase(user.getEmail())) {
+//			info.addStringPermission("oper");
+//		}
 //		info.addRoles(user.getRoles());
 //		info.addStringPermissions(user.getPermissions());
 		return info;

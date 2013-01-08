@@ -15,6 +15,8 @@
  */
 package net.noday.core.utils;
 
+import net.noday.core.security.Registable;
+
 import org.apache.shiro.util.ByteSource;
 
 /**
@@ -31,5 +33,13 @@ public class PasswordUtil {
 		String hashPassword = Digests.sha256Hash("yourPassword", salt, 1024);
 		System.out.println("salt:" + salt.toBase64());
 		System.out.println("password:" + hashPassword);
+	}
+	
+	public static void entryptPassword(Registable user) {
+		ByteSource salt = Digests.generateSalt(Digests.SALT_SIZE);
+		user.setSalt(salt.toBase64());
+
+		String hashPassword = Digests.sha256Hash(user.getPlainPassword(), salt, 1024);
+		user.setPassword(hashPassword);
 	}
 }
