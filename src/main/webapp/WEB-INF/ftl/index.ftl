@@ -27,12 +27,10 @@
                                     <div class="slide" id="slide1" style="display: block; left: 0px; ">
                                         <h2>申请二级域名</h2>
 													<div class="row">
-														<div class="span8">
-															<div class="input-control text span2">
+														<div class="span4 offset1">
+															<div class="input-control text span4">
 														        <input type="text" />
 														        <button class="helper"></button>
-														    </div>
-		                                        <div class="input-control select span3">
 														        <select>
 														            <option>11</option>
 														            <option>11</option>
@@ -40,18 +38,25 @@
 														        </select>
 														    </div>
 														</div>
+														<div class="span2">
+															<input type="submit" value="Submit"/>
+														</div>
+													</div>
+													<div class="row">
+														<div class="span5 offset1">
+	                                        <div class="notices">
+													        <div class="bg-color-red">
+													            <a href="#" class="close"></a>
+													            <div class="notice-icon"> <img/> </div>
+													            <div class="notice-image"> <img/> </div>
+													            <div class="notice-header"> ... </div>
+													            <div class="notice-text"> ... </div>
+													        </div>
+													    </div>
+														</div>
 													</div>
 												    <br>
-                                        <input type="submit" value="Submit"/>
-                                        <div class="notices">
-												        <div class="bg-color-red">
-												            <a href="#" class="close"></a>
-												            <div class="notice-icon"> <img/> </div>
-												            <div class="notice-image"> <img/> </div>
-												            <div class="notice-header"> ... </div>
-												            <div class="notice-text"> ... </div>
-												        </div>
-												    </div>
+                                        
                                     </div>
 
                                     <div class="slide" id="slide2" style="display: block; left: -580px; ">
