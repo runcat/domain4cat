@@ -24,15 +24,32 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class DnsRecordDao {
 
-	@Autowired private JdbcTemplate jdbcTemplate;
-	@Autowired private NamedParameterJdbcTemplate namedJdbcTemplate;
+	@Autowired private JdbcTemplate jdbc;
+	@Autowired private NamedParameterJdbcTemplate namedjdbc;
 
 	public long save(DnsRecord obj) {
         String sql = "insert into dnsrecord(sub_domain,record_type,record_line,value,mx,ttl,domain_id)" +
         		" values(:subDomain,:recordType,:recordLine,:value,:mx,:ttl,:domainId)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        namedJdbcTemplate.update(sql, new BeanPropertySqlParameterSource(obj), keyHolder);
+        namedjdbc.update(sql, new BeanPropertySqlParameterSource(obj), keyHolder);
         return keyHolder.getKey().longValue();
+	}
+	
+	public void update(DnsRecord obj) {
+		String sql = "update dnsrecord set sub_domain=:subDomain,record_type=:recordType,record_line=:recordLine" +
+				",value=:value,ttl=:ttl where id=:id";
+		namedjdbc.update(sql, new BeanPropertySqlParameterSource(obj));
+	}
+	
+	public void delete(Long id) {
+		String sql = "delete dnsrecord where id=?";
+		jdbc.update(sql, id);
+	}
+	
+	public DnsRecord get(Long id) {
+		String sql = "select * from dnsrecord a where a.id=?";
+		DnsRecord r = jdbc.queryForObject(sql, new BeanPropertyRowMapper<DnsRecord>(DnsRecord.class), id);
+		return r;
 	}
 	
 	public List<DnsRecord> findPage(DnsRecord condition, int pIndex, int pSize) {
@@ -45,7 +62,7 @@ public class DnsRecordDao {
 		sql.append(" order by r.record_type")
 			.append(" limit ").append((pIndex - 1) * pSize)
 			.append(",").append(pSize);
-		List<DnsRecord> list = namedJdbcTemplate.query(sql.toString(), ps, new BeanPropertyRowMapper<DnsRecord>(DnsRecord.class));
+		List<DnsRecord> list = namedjdbc.query(sql.toString(), ps, new BeanPropertyRowMapper<DnsRecord>(DnsRecord.class));
 		return list;
 	}
 	public int findCount(DnsRecord condition) {
@@ -55,7 +72,7 @@ public class DnsRecordDao {
 			ps = new BeanPropertySqlParameterSource(condition);
 			sql.append(toConditionSql(condition));
 		}
-		return namedJdbcTemplate.queryForInt(sql.toString(), ps);
+		return namedjdbc.queryForInt(sql.toString(), ps);
 	}
 	
 	private String toConditionSql(DnsRecord d) {
