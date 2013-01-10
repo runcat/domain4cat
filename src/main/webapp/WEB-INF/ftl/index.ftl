@@ -72,31 +72,35 @@
                         <div class="span4 padding30 place-left bg-color-blueLight" id="sponsorBlock">
                             <br>
                             <h2 class="">想加入 ?</h2>
-							<div class="input-control text span3">
-						        <input type="text" />
-						        <button class="helper"></button>
-						    </div>
-							<div class="input-control select span3">
-						        <select>
-						            <option>11</option>
-						            <option>11</option>
-						            <option>11</option>
-						        </select>
-						    </div>
-						    <p class="bg-color-pink padding20 fg-color-white">
-						    输入并选择
-						    </p>
-						    <input type="submit" value="检测"/>
-                            <div class="notices" style="display: none;">
-						        <div class="bg-color-red">
-						            <a href="#" class="close"></a>
-						            <div class="notice-icon"> <img/> </div>
-						            <div class="notice-image"> <img/> </div>
-						            <div class="notice-header"> ... </div>
-						            <div class="notice-text"> ... </div>
-						        </div>
-						    </div>
+                            	<div class="row">
+											<div class="input-control text span3 outline-color-red">
+										        <input type="text" />
+										        <button class="helper"></button>
+										    </div>
+											<div class="input-control select span3">
+										        <select class="outline-color-red">
+										            <option>11</option>
+										            <option>11</option>
+										            <option>11</option>
+										        </select>
+										    </div>
+                            	</div>
+									    <div class="row">
+									    	<span class="span3">输入并选择</span>
+									    </div>
+									    <input type="submit" value="我要"/>
+			                            <div class="notices" style="display: none;">
+									        <div class="bg-color-red">
+									            <a href="#" class="close"></a>
+									            <div class="notice-icon"> <img/> </div>
+									            <div class="notice-image"> <img/> </div>
+									            <div class="notice-header"> ... </div>
+									            <div class="notice-text"> ... </div>
+									        </div>
+									    </div>
+									    <!-- 
                             <a href="#"><h1><i class="icon-arrow-right-3 fg-color-red"></i></h1></a>
+									     -->
                         </div>
                     </div>
                 </div>
