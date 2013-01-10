@@ -63,5 +63,10 @@ public class DomainController extends GeneralController<Domain> {
 		responseData(m, domainService.findPage(index, null));
 		return "admin/article/list";
 	}
+	
+	public String checkSubdomain() {
+		
+		return "";
+	}
 
 }

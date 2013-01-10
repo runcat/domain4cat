@@ -26,43 +26,17 @@
 
                                     <div class="slide" id="slide1" style="display: block; left: 0px; ">
                                         <h2>申请二级域名</h2>
-													<div class="row">
-														<div class="span4 offset1">
-															<div class="input-control text span4">
-														        <input type="text" />
-														        <button class="helper"></button>
-														        <select>
-														            <option>11</option>
-														            <option>11</option>
-														            <option>11</option>
-														        </select>
-														    </div>
-														</div>
-														<div class="span2">
-															<input type="submit" value="Submit"/>
-														</div>
-													</div>
-													<div class="row">
-														<div class="span5 offset1">
-	                                        <div class="notices">
-													        <div class="bg-color-red">
-													            <a href="#" class="close"></a>
-													            <div class="notice-icon"> <img/> </div>
-													            <div class="notice-image"> <img/> </div>
-													            <div class="notice-header"> ... </div>
-													            <div class="notice-text"> ... </div>
-													        </div>
-													    </div>
-														</div>
-													</div>
-												    <br>
+										<br>
+                                        <p class="bg-color-pink padding20 fg-color-white">
+                                            Developed with the advice of Microsoft to build the user interface and <strong>include:</strong>
+                                        </p>
                                         
                                     </div>
 
                                     <div class="slide" id="slide2" style="display: block; left: -580px; ">
-                                        <h2 class="fg-color-darken">Metro UI CSS</h2>
+                                        <h2 class="fg-color-darken">分享域名</h2>
                                         <p class="bg-color-pink padding20 fg-color-white">
-                                            Developed with the advice of Microsoft to build the user interface and <strong>include:</strong>
+                                            我想将我闲置的域名<strong><a href="#">共享</a></strong>给大家用
                                         </p>
 
                                         <div class="span3 place-left">
@@ -95,12 +69,33 @@
                         </div>
                     </div>
                     <div class="span4">
-                        <div class="span4 padding30 text-center place-left bg-color-blueLight" id="sponsorBlock">
-                            <br>
+                        <div class="span4 padding30 place-left bg-color-blueLight" id="sponsorBlock">
                             <br>
                             <h2 class="">想加入 ?</h2>
-                            <p class="">已有1000+个用户收益于域名分享 <a class="" href="#">二级域名列表</a></p>
-                            <br>
+							<div class="input-control text span3">
+						        <input type="text" />
+						        <button class="helper"></button>
+						    </div>
+							<div class="input-control select span3">
+						        <select>
+						            <option>11</option>
+						            <option>11</option>
+						            <option>11</option>
+						        </select>
+						    </div>
+						    <p class="bg-color-pink padding20 fg-color-white">
+						    输入并选择
+						    </p>
+						    <input type="submit" value="检测"/>
+                            <div class="notices" style="display: none;">
+						        <div class="bg-color-red">
+						            <a href="#" class="close"></a>
+						            <div class="notice-icon"> <img/> </div>
+						            <div class="notice-image"> <img/> </div>
+						            <div class="notice-header"> ... </div>
+						            <div class="notice-text"> ... </div>
+						        </div>
+						    </div>
                             <a href="#"><h1><i class="icon-arrow-right-3 fg-color-red"></i></h1></a>
                         </div>
                     </div>
