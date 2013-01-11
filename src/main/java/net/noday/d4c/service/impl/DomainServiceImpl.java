@@ -3,7 +3,7 @@
  */
 package net.noday.d4c.service.impl;
 
-import java.io.IOException;
+import java.util.List;
 
 import net.noday.core.pagination.Page;
 import net.noday.core.security.ShiroDbRealm.ShiroUser;
@@ -13,9 +13,6 @@ import net.noday.d4c.dao.DomainDao;
 import net.noday.d4c.model.Domain;
 
 import org.apache.shiro.SecurityUtils;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.parser.Parser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,12 +34,7 @@ public class DomainServiceImpl implements SecurityService<Domain> {
 	
 	public Long save(Domain obj) {
 		PasswordUtil.entryptPassword(obj);
-		try {
-			Document doc = Jsoup.connect("").data("", "").userAgent("").cookie("", "").timeout(0).post();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		return dao.save(obj);
 	}
 	
@@ -50,11 +42,11 @@ public class DomainServiceImpl implements SecurityService<Domain> {
 		
 	}
 	
-	public void delete(long id) {
+	public void delete(String id) {
 		
 	}
 	
-	public Domain get(long id) {
+	public Domain get(String id) {
 		return null;
 	}
 
@@ -85,19 +77,11 @@ public class DomainServiceImpl implements SecurityService<Domain> {
 		return user.loginName;
 	}
 	
+	public boolean checkSubdomain(String domain) {
+		return dao.has(domain);
+	}
 	
-	public static void main(String[] args) {
-		try {
-			Document doc = Jsoup.connect("http://dwz.cn/create.php")
-					.data("url", "http://www.hao123.com/")
-//					.userAgent("")
-//					.cookie("", "")
-//					.timeout(0)
-					.post();
-			System.out.println(doc.body().text());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public List<Domain> findDomain() {
+		return dao.findDomain();
 	}
 }

@@ -15,23 +15,15 @@
  */
 package net.noday.d4c.web;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.Locale;
 
 //import net.noday.cat.model.Duoshuo;
 //import net.noday.cat.service.ArticleService;
 import net.noday.core.model.User;
 import net.noday.core.utils.Captcha;
 import net.noday.core.web.BaseController;
+import net.noday.d4c.service.impl.DomainServiceImpl;
 
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,7 +31,6 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -52,11 +43,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class MainController extends BaseController {
 
-//	@Autowired private ArticleService articleService;
+	@Autowired private DomainServiceImpl domainService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String index(Model model) {
-		
+	public String index(Model m) {
+		responseData(m, domainService.findDomain());
 		return "index";
 	}
 	

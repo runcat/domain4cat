@@ -33,7 +33,7 @@ import net.noday.d4c.service.impl.DnsRecordServiceImpl;
  * @version , 2013-1-9
  * @since 
  */
-public class DnsRecordController extends GeneralController<DnsRecord> {
+public class DnsRecordController extends GeneralController<DnsRecord, Long> {
 
 	@Autowired private DnsRecordServiceImpl service;
 	/* (non-Javadoc)
@@ -62,7 +62,7 @@ public class DnsRecordController extends GeneralController<DnsRecord> {
 	 * @see net.noday.core.web.GeneralController#delete(long, org.springframework.ui.Model)
 	 */
 	@Override
-	public String delete(@PathVariable("id") long id, Model m) {
+	public String delete(@PathVariable("id") Long id, Model m) {
 		service.delete(id);
 		responseResult(m, true);
 		return "";
@@ -72,7 +72,7 @@ public class DnsRecordController extends GeneralController<DnsRecord> {
 	 * @see net.noday.core.web.GeneralController#edit(long, org.springframework.ui.Model)
 	 */
 	@Override
-	public String edit(@PathVariable("id") long id, Model m) {
+	public String edit(@PathVariable("id") Long id, Model m) {
 		m.addAttribute(service.get(id));
 		return "admin/article/add";
 	}
@@ -81,7 +81,7 @@ public class DnsRecordController extends GeneralController<DnsRecord> {
 	 * @see net.noday.core.web.GeneralController#modify(long, java.lang.Object, org.springframework.validation.BindingResult, org.springframework.ui.Model)
 	 */
 	@Override
-	public String modify(@PathVariable("id") long id, @Valid DnsRecord obj, BindingResult result, Model m) {
+	public String modify(@PathVariable("id") Long id, @Valid DnsRecord obj, BindingResult result, Model m) {
 		service.update(obj);
 		responseData(m, id);
 		return "admin/article/add-success";

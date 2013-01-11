@@ -74,21 +74,21 @@
                             <h2 class="">想加入 ?</h2>
                             	<div class="row">
 											<div class="input-control text span3 outline-color-red">
-										        <input type="text" />
+										        <input id="name" type="text" />
 										        <button class="helper"></button>
 										    </div>
 											<div class="input-control select span3">
-										        <select class="outline-color-red">
-										            <option>11</option>
-										            <option>11</option>
-										            <option>11</option>
+										        <select id="domain" class="outline-color-red">
+										        	<#list data as row>
+										            <option value="${row.name}">${row.name}</option>
+										        	</#list>
 										        </select>
 										    </div>
                             	</div>
 									    <div class="row">
-									    	<span class="span3">输入并选择</span>
+									    	<span id="msg" class="span3">输入并选择</span>
 									    </div>
-									    <input type="submit" value="我要"/>
+									    <input id="btn_sub" type="button" value="我要"/>
 			                            <div class="notices" style="display: none;">
 									        <div class="bg-color-red">
 									            <a href="#" class="close"></a>
@@ -163,6 +163,29 @@
 <script type="text/javascript" src="js/carousel.js"></script>
 <script type="text/javascript">
 $(function(){
+	$("#btn_sub").click(function() {
+		var s_name = $("#name").val();
+		var s_domain = $("#domain").val();
+		$.ajax({
+			url:"${contextPath}/"+s_name+"."+s_domain+"/valid"
+			,dataType:"json"
+			,beforeSend:function(XHR) {
+				$(this).attr("disabled", true);
+			}
+			,success:function(data, textStatus, jqXHR) {
+				if (data) {
+					if (data.result) {
+						$("#msg").html("赶快输入密码占有她吧！").show();
+					} else {
+						$("#msg").html("被使用了，换一个吧！").show();
+					}
+				}
+			}
+			,complete:function(XHR, TS) {
+				$(this).attr("disabled", false);
+			}
+		});
+	});
     $('.github-info').each(function(){
         var $container = $(this);
         var repo = $container.data('repo');

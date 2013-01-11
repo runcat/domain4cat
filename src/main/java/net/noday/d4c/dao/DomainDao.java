@@ -43,19 +43,29 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class DomainDao {
 
-	@Autowired private JdbcTemplate jdbcTemplate;
-	@Autowired private NamedParameterJdbcTemplate namedJdbcTemplate;
+	@Autowired private JdbcTemplate jdbc;
+	@Autowired private NamedParameterJdbcTemplate namedJdbc;
 	
 	public long save(Domain obj) {
         String sql = "insert into domain(name,password,salt,pid) values(:name,:password,:salt,:pid)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        namedJdbcTemplate.update(sql, new BeanPropertySqlParameterSource(obj), keyHolder);
+        namedJdbc.update(sql, new BeanPropertySqlParameterSource(obj), keyHolder);
         return keyHolder.getKey().longValue();
+	}
+	
+	public boolean has(String domain) {
+		String sql = "select count(*) from domain where name=?";
+		return jdbc.queryForInt(sql, domain) > 0;
+	}
+	
+	public List<Domain> findDomain() {
+		String sql = "select * from domain where pid is null";
+		return jdbc.query(sql, new BeanPropertyRowMapper<Domain>(Domain.class));
 	}
 	
 	public Domain findUserByDomain(String domain) {
 		String sql = "select * from domain d where d.name=? limit 1";
-		Domain u = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<Domain>(Domain.class), domain);
+		Domain u = jdbc.queryForObject(sql, new BeanPropertyRowMapper<Domain>(Domain.class), domain);
 		return u;
 	}
 	
@@ -69,9 +79,10 @@ public class DomainDao {
 		sql.append(" order by d.regist_time desc")
 			.append(" limit ").append((pIndex - 1) * pSize)
 			.append(",").append(pSize);
-		List<Domain> list = namedJdbcTemplate.query(sql.toString(), ps, new BeanPropertyRowMapper<Domain>(Domain.class));
+		List<Domain> list = namedJdbc.query(sql.toString(), ps, new BeanPropertyRowMapper<Domain>(Domain.class));
 		return list;
 	}
+	
 	public int findCount(Domain condition) {
 		StringBuffer sql = new StringBuffer("select count(d.id) from domain d where 1=1");
 		SqlParameterSource ps = null;
@@ -79,7 +90,7 @@ public class DomainDao {
 			ps = new BeanPropertySqlParameterSource(condition);
 			sql.append(toConditionSql(condition));
 		}
-		return namedJdbcTemplate.queryForInt(sql.toString(), ps);
+		return namedJdbc.queryForInt(sql.toString(), ps);
 	}
 	
 	private String toConditionSql(Domain d) {
@@ -95,7 +106,7 @@ public class DomainDao {
 	
 	///---------------------
 	protected Domain safeQueryForObject(String sql, RowMapper<Domain> rowMapper, Object... args) {
-		List<Domain> results = jdbcTemplate.query(sql, args, new RowMapperResultSetExtractor<Domain>(rowMapper, 1));
+		List<Domain> results = jdbc.query(sql, args, new RowMapperResultSetExtractor<Domain>(rowMapper, 1));
 		int size = (results != null ? results.size() : 0);
 		if (results.size() > 1) {
 			throw new IncorrectResultSizeDataAccessException(1, size);

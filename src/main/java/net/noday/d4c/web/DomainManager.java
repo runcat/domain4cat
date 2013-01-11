@@ -19,8 +19,8 @@ import net.noday.d4c.service.impl.DomainServiceImpl;
  * @author Administrator
  *
  */
-@RequestMapping("/domain")
-public class DomainController extends GeneralController<Domain, String> {
+@RequestMapping("/admin/domain")
+public class DomainManager extends GeneralController<Domain, String> {
 
 	@Autowired private DomainServiceImpl domainService;
 	
@@ -64,12 +64,6 @@ public class DomainController extends GeneralController<Domain, String> {
 	public String list(@PathVariable("index") int index, Model m) {
 		responseData(m, domainService.findPage(index, null));
 		return "admin/article/list";
-	}
-	
-	@RequestMapping("{domain}/valid")
-	public String checkSubdomain(@PathVariable("domain") String domain, Model m) {
-		responseResult(m, domainService.checkSubdomain(domain));
-		return "";
 	}
 
 }
