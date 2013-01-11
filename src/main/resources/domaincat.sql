@@ -27,11 +27,13 @@ CREATE TABLE `domain` (
   `pid` tinyint(4) default NULL COMMENT '域名id，有了说明是二级域名',
   `regist_time` timestamp NOT NULL default CURRENT_TIMESTAMP COMMENT '注册时间',
   `regist_ip` varchar(32) default NULL COMMENT '注册ip',
-  `last_time` timestamp NOT NULL default '0000-00-00 00:00:00' COMMENT '最后登录时间',
+  `last_time` timestamp NULL COMMENT '最后登录时间',
   `last_ip` varchar(32) default NULL COMMENT '最后登录ip',
   `description` text COMMENT '说明',
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+insert into `domain`(`name`,`password`,`salt`) values('runcat.org','K50paAp6XRU6xMt5VmmQvEVfe33hfgxHDRx1gYYxNTU=','0VSG15LOUN4=');
 
 DROP TABLE IF EXISTS `dnsrecord`;
 

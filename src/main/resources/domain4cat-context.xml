@@ -73,7 +73,7 @@
 			<tx:method name="*" read-only="true" />
 		</tx:attributes>
 	</tx:advice>
-	
+	<aop:aspectj-autoproxy proxy-target-class="true" />
 	<aop:config proxy-target-class="true">
 		<aop:advisor advice-ref="txAdvice" pointcut="execution(* net.noday..service..*.*(..))" />
 	</aop:config>

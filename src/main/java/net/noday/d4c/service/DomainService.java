@@ -13,11 +13,11 @@ public interface DomainService {
 
 	public abstract void update(Domain obj);
 
-	public abstract void delete(String id);
+	public abstract void delete(Long id);
 
-	public abstract Domain get(String id);
+	public abstract Domain get(Long id);
 
-	public abstract boolean checkSubdomain(String domain);
+	public abstract boolean checkSubdomain(Long id, String subdomain);
 
 	public abstract List<Domain> findDomain();
 

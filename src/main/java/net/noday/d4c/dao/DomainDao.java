@@ -53,9 +53,9 @@ public class DomainDao {
         return keyHolder.getKey().longValue();
 	}
 	
-	public boolean has(String domain) {
-		String sql = "select count(*) from domain where name=?";
-		return jdbc.queryForInt(sql, domain) > 0;
+	public boolean has(Long id, String subdomain) {
+		String sql = "select count(*) from domain where name=? and pid=?";
+		return jdbc.queryForInt(sql, id, subdomain) > 0;
 	}
 	
 	public List<Domain> findDomain() {

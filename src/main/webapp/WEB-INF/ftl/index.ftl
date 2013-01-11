@@ -72,7 +72,7 @@
                         <div class="span4 padding30 place-left bg-color-blueLight" id="sponsorBlock">
                             <br>
                             <h2 class="">想加入 ?</h2>
-                            	<div class="row">
+                            	<div id="content" class="row">
 											<div class="input-control text span3 outline-color-red">
 										        <input id="name" type="text" />
 										        <button class="helper"></button>
@@ -80,7 +80,7 @@
 											<div class="input-control select span3">
 										        <select id="domain" class="outline-color-red">
 										        	<#list data as row>
-										            <option value="${row.name}">${row.name}</option>
+										            <option value="${row.id}">${row.name}</option>
 										        	</#list>
 										        </select>
 										    </div>
@@ -166,8 +166,9 @@ $(function(){
 	$("#btn_sub").click(function() {
 		var s_name = $("#name").val();
 		var s_domain = $("#domain").val();
+		var s_domain_ = $("#domain").text();
 		$.ajax({
-			url:"${contextPath}/"+s_name+"."+s_domain+"/valid"
+			url:"${contextPath}/domain/"+s_domain+"/valid/"+s_name+".json"
 			,dataType:"json"
 			,beforeSend:function(XHR) {
 				$(this).attr("disabled", true);
@@ -175,9 +176,10 @@ $(function(){
 			,success:function(data, textStatus, jqXHR) {
 				if (data) {
 					if (data.result) {
-						$("#msg").html("赶快输入密码占有她吧！").show();
-					} else {
 						$("#msg").html("被使用了，换一个吧！").show();
+					} else {
+						$("#msg").html("赶快输入密码占有她吧！").show();
+						$("#content").html('<div class="row"><span id="msg" class="span3">'+s_name+'.'+s_domain+'</span></div><div class="input-control password span3"><input id="password" type="password" /><button class="helper"></button></div>');
 					}
 				}
 			}

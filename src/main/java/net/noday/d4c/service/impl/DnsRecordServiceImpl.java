@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import net.noday.core.pagination.Page;
 import net.noday.d4c.dao.DnsRecordDao;
 import net.noday.d4c.model.DnsRecord;
+import net.noday.d4c.service.DnsRecordService;
 
 /**
  * domain4cat DnsRecordServiceImpl
@@ -30,26 +31,46 @@ import net.noday.d4c.model.DnsRecord;
  * @since 
  */
 @Service
-public class DnsRecordServiceImpl {
+public class DnsRecordServiceImpl implements DnsRecordService {
 
 	@Autowired private DnsRecordDao dao;
 	
+	/* (non-Javadoc)
+	 * @see net.noday.d4c.service.impl.DnsRecordService#save(net.noday.d4c.model.DnsRecord)
+	 */
+	@Override
 	public Long save(DnsRecord obj) {
 		return dao.save(obj);
 	}
 	
+	/* (non-Javadoc)
+	 * @see net.noday.d4c.service.impl.DnsRecordService#update(net.noday.d4c.model.DnsRecord)
+	 */
+	@Override
 	public void update(DnsRecord obj) {
 		dao.update(obj);
 	}
 	
+	/* (non-Javadoc)
+	 * @see net.noday.d4c.service.impl.DnsRecordService#delete(java.lang.Long)
+	 */
+	@Override
 	public void delete(Long id) {
 		dao.delete(id);
 	}
 	
+	/* (non-Javadoc)
+	 * @see net.noday.d4c.service.impl.DnsRecordService#get(java.lang.Long)
+	 */
+	@Override
 	public DnsRecord get(Long id) {
 		return dao.get(id);
 	}
 	
+	/* (non-Javadoc)
+	 * @see net.noday.d4c.service.impl.DnsRecordService#findPage(int, net.noday.d4c.model.DnsRecord)
+	 */
+	@Override
 	public Page<DnsRecord> findPage(int index, DnsRecord condition) {
 		Page<DnsRecord> page = new Page<DnsRecord>(index, Page.DEFAULTSIZE);
 		page.setPageCount(dao.findCount(condition));

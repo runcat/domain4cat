@@ -22,7 +22,7 @@ import net.noday.d4c.service.DomainService;
  */
 @Controller
 @RequestMapping("/admin/domain")
-public class DomainManager extends GeneralController<Domain, String> {
+public class DomainManager extends GeneralController<Domain, Long> {
 
 	@Autowired private DomainService domainService;
 	
@@ -43,20 +43,20 @@ public class DomainManager extends GeneralController<Domain, String> {
 	}
 
 	@Override
-	public String delete(@PathVariable("id") String id, Model m) {
+	public String delete(@PathVariable("id") Long id, Model m) {
 		domainService.delete(id);
 		responseResult(m, true);
 		return "";
 	}
 
 	@Override
-	public String edit(@PathVariable("id") String id, Model m) {
+	public String edit(@PathVariable("id") Long id, Model m) {
 		m.addAttribute(domainService.get(id));
 		return "admin/article/add";
 	}
 
 	@Override
-	public String modify(@PathVariable("id") String id, @Valid Domain obj, BindingResult result, Model m) {
+	public String modify(@PathVariable("id") Long id, @Valid Domain obj, BindingResult result, Model m) {
 		domainService.update(obj);
 		responseData(m, id);
 		return "admin/article/add-success";

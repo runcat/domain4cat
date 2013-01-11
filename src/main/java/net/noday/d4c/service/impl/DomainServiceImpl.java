@@ -59,7 +59,7 @@ public class DomainServiceImpl implements SecurityService<Domain>, DomainService
 	 * @see net.noday.d4c.service.impl.DomainService#delete(java.lang.String)
 	 */
 	@Override
-	public void delete(String id) {
+	public void delete(Long id) {
 		
 	}
 	
@@ -67,7 +67,7 @@ public class DomainServiceImpl implements SecurityService<Domain>, DomainService
 	 * @see net.noday.d4c.service.impl.DomainService#get(java.lang.String)
 	 */
 	@Override
-	public Domain get(String id) {
+	public Domain get(Long id) {
 		return null;
 	}
 
@@ -102,8 +102,8 @@ public class DomainServiceImpl implements SecurityService<Domain>, DomainService
 	 * @see net.noday.d4c.service.impl.DomainService#checkSubdomain(java.lang.String)
 	 */
 	@Override
-	public boolean checkSubdomain(String domain) {
-		return dao.has(domain);
+	public boolean checkSubdomain(Long id, String subdomain) {
+		return dao.has(id, subdomain);
 	}
 	
 	/* (non-Javadoc)

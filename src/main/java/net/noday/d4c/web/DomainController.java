@@ -22,7 +22,7 @@ import net.noday.d4c.service.DomainService;
  */
 @Controller
 @RequestMapping("/domain")
-public class DomainController extends GeneralController<Domain, String> {
+public class DomainController extends GeneralController<Domain, Long> {
 
 	@Autowired private DomainService domainService;
 	
@@ -43,20 +43,20 @@ public class DomainController extends GeneralController<Domain, String> {
 	}
 
 	@Override
-	public String delete(@PathVariable("id") String id, Model m) {
+	public String delete(@PathVariable("id") Long id, Model m) {
 		domainService.delete(id);
 		responseResult(m, true);
 		return "";
 	}
 
 	@Override
-	public String edit(@PathVariable("id") String id, Model m) {
+	public String edit(@PathVariable("id") Long id, Model m) {
 		m.addAttribute(domainService.get(id));
 		return "admin/article/add";
 	}
 
 	@Override
-	public String modify(@PathVariable("id") String id, @Valid Domain obj, BindingResult result, Model m) {
+	public String modify(@PathVariable("id") Long id, @Valid Domain obj, BindingResult result, Model m) {
 		domainService.update(obj);
 		responseData(m, id);
 		return "admin/article/add-success";
@@ -68,9 +68,9 @@ public class DomainController extends GeneralController<Domain, String> {
 		return "admin/article/list";
 	}
 	
-	@RequestMapping("{domain}/valid")
-	public String checkSubdomain(@PathVariable("domain") String domain, Model m) {
-		responseResult(m, domainService.checkSubdomain(domain));
+	@RequestMapping("{id}/valid/{subdomain}")
+	public String checkSubdomain(@PathVariable("id") Long id, @PathVariable("subdomain") String subdomain, Model m) {
+		responseResult(m, domainService.checkSubdomain(id, subdomain));
 		return "";
 	}
 

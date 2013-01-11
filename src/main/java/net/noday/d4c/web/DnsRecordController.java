@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import net.noday.core.web.GeneralController;
 import net.noday.d4c.model.DnsRecord;
-import net.noday.d4c.service.impl.DnsRecordServiceImpl;
+import net.noday.d4c.service.DnsRecordService;
 
 /**
  * domain4cat DnsRecordController
@@ -38,7 +38,8 @@ import net.noday.d4c.service.impl.DnsRecordServiceImpl;
 @Controller @RequestMapping("dnsrecord")
 public class DnsRecordController extends GeneralController<DnsRecord, Long> {
 
-	@Autowired private DnsRecordServiceImpl service;
+	@Autowired private DnsRecordService service;
+
 	/* (non-Javadoc)
 	 * @see net.noday.core.web.GeneralController#create()
 	 */
