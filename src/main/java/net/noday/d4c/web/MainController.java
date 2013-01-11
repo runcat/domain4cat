@@ -22,7 +22,7 @@ import java.io.IOException;
 import net.noday.core.model.User;
 import net.noday.core.utils.Captcha;
 import net.noday.core.web.BaseController;
-import net.noday.d4c.service.impl.DomainServiceImpl;
+import net.noday.d4c.service.DomainService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,7 +43,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class MainController extends BaseController {
 
-	@Autowired private DomainServiceImpl domainService;
+	@Autowired private DomainService domainService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Model m) {

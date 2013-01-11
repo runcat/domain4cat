@@ -6,6 +6,7 @@ package net.noday.d4c.web;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,16 +14,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import net.noday.core.web.GeneralController;
 import net.noday.d4c.model.Domain;
-import net.noday.d4c.service.impl.DomainServiceImpl;
+import net.noday.d4c.service.DomainService;
 
 /**
  * @author Administrator
  *
  */
+@Controller
 @RequestMapping("/domain")
 public class DomainController extends GeneralController<Domain, String> {
 
-	@Autowired private DomainServiceImpl domainService;
+	@Autowired private DomainService domainService;
 	
 	@Override
 	public String create() {

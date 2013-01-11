@@ -16,6 +16,7 @@
 package net.noday.d4c.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import net.noday.core.pagination.Page;
 import net.noday.d4c.dao.DnsRecordDao;
@@ -28,6 +29,7 @@ import net.noday.d4c.model.DnsRecord;
  * @version , 2013-1-9
  * @since 
  */
+@Service
 public class DnsRecordServiceImpl {
 
 	@Autowired private DnsRecordDao dao;
@@ -53,5 +55,9 @@ public class DnsRecordServiceImpl {
 		page.setPageCount(dao.findCount(condition));
 		page.setRows(dao.findPage(condition, page.getPageIndex(), page.getPageCount()));
 		return page;
+	}
+
+	public DnsRecordServiceImpl() {
+		super();
 	}
 }

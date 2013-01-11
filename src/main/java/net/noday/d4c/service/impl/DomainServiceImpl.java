@@ -11,6 +11,7 @@ import net.noday.core.service.SecurityService;
 import net.noday.core.utils.PasswordUtil;
 import net.noday.d4c.dao.DomainDao;
 import net.noday.d4c.model.Domain;
+import net.noday.d4c.service.DomainService;
 
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +22,14 @@ import org.springframework.stereotype.Service;
  *
  */
 @Service
-public class DomainServiceImpl implements SecurityService<Domain> {
+public class DomainServiceImpl implements SecurityService<Domain>, DomainService {
 
 	@Autowired private DomainDao dao;
 	
+	/* (non-Javadoc)
+	 * @see net.noday.d4c.service.impl.DomainService#findPage(int, net.noday.d4c.model.Domain)
+	 */
+	@Override
 	public Page<Domain> findPage(int index, Domain condition) {
 		Page<Domain> pageData = new Page<Domain>(index, Page.DEFAULTSIZE);
 		pageData.setPageCount(dao.findCount(condition));
@@ -32,20 +37,36 @@ public class DomainServiceImpl implements SecurityService<Domain> {
 		return pageData;
 	}
 	
+	/* (non-Javadoc)
+	 * @see net.noday.d4c.service.impl.DomainService#save(net.noday.d4c.model.Domain)
+	 */
+	@Override
 	public Long save(Domain obj) {
 		PasswordUtil.entryptPassword(obj);
 		
 		return dao.save(obj);
 	}
 	
+	/* (non-Javadoc)
+	 * @see net.noday.d4c.service.impl.DomainService#update(net.noday.d4c.model.Domain)
+	 */
+	@Override
 	public void update(Domain obj) {
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see net.noday.d4c.service.impl.DomainService#delete(java.lang.String)
+	 */
+	@Override
 	public void delete(String id) {
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see net.noday.d4c.service.impl.DomainService#get(java.lang.String)
+	 */
+	@Override
 	public Domain get(String id) {
 		return null;
 	}
@@ -77,10 +98,18 @@ public class DomainServiceImpl implements SecurityService<Domain> {
 		return user.loginName;
 	}
 	
+	/* (non-Javadoc)
+	 * @see net.noday.d4c.service.impl.DomainService#checkSubdomain(java.lang.String)
+	 */
+	@Override
 	public boolean checkSubdomain(String domain) {
 		return dao.has(domain);
 	}
 	
+	/* (non-Javadoc)
+	 * @see net.noday.d4c.service.impl.DomainService#findDomain()
+	 */
+	@Override
 	public List<Domain> findDomain() {
 		return dao.findDomain();
 	}
