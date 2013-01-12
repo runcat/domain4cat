@@ -44,7 +44,7 @@ CREATE TABLE `dnsrecord` (
   `record_line` tinyint(4) NOT NULL COMMENT '线路类型',
   `value` varchar(50) NOT NULL COMMENT '记录值',
   `mx` varchar(10) NOT NULL default '-' COMMENT 'mx优先级',
-  `ttl` tinyint(4) NOT NULL COMMENT 'TTL',
+  `ttl` int(11) NOT NULL default 600 COMMENT 'TTL',
   `stopable` tinyint(1) NOT NULL COMMENT '暂停使用',
   `domain_id` int(11) NOT NULL COMMENT '域名id',
   PRIMARY KEY  (`id`)

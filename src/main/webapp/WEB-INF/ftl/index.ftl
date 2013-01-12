@@ -72,35 +72,32 @@
                         <div class="span4 padding30 place-left bg-color-blueLight" id="sponsorBlock">
                             <br>
                             <h2 class="">想加入 ?</h2>
-                            	<div id="content" class="row">
-											<div class="input-control text span3 outline-color-red">
+                            	<div class="row content_toggle">
+											<div class="input-control text span3">
 										        <input id="name" type="text" />
 										        <button class="helper"></button>
 										    </div>
 											<div class="input-control select span3">
-										        <select id="domain" class="outline-color-red">
+										        <select id="domain">
 										        	<#list data as row>
 										            <option value="${row.id}">${row.name}</option>
 										        	</#list>
 										        </select>
 										    </div>
+									    <input id="btn_check" type="button" value="我要"/>
+                            	</div>
+                            	<div class="row content_toggle no-display">
+											<div class="input-control text span3 outline-color-red">
+										        <input id="subdomain" type="text" readonly="readonly" />
+										    </div>
+											<div class="input-control password span3">
+												<input id="password" type="password" /><button class="helper"></button>
+											</div>
+									    <input id="btn_sub" type="button" value="占有"/>
                             	</div>
 									    <div class="row">
 									    	<span id="msg" class="span3">输入并选择</span>
 									    </div>
-									    <input id="btn_sub" type="button" value="我要"/>
-			                            <div class="notices" style="display: none;">
-									        <div class="bg-color-red">
-									            <a href="#" class="close"></a>
-									            <div class="notice-icon"> <img/> </div>
-									            <div class="notice-image"> <img/> </div>
-									            <div class="notice-header"> ... </div>
-									            <div class="notice-text"> ... </div>
-									        </div>
-									    </div>
-									    <!-- 
-                            <a href="#"><h1><i class="icon-arrow-right-3 fg-color-red"></i></h1></a>
-									     -->
                         </div>
                     </div>
                 </div>
@@ -163,28 +160,53 @@
 <script type="text/javascript" src="js/carousel.js"></script>
 <script type="text/javascript">
 $(function(){
-	$("#btn_sub").click(function() {
+	$("#btn_check").click(function() {
 		var s_name = $("#name").val();
 		var s_domain = $("#domain").val();
-		var s_domain_ = $("#domain").text();
+		var s_domain_text = $("#domain").find("option:selected").text();
 		$.ajax({
 			url:"${contextPath}/domain/"+s_domain+"/valid/"+s_name+".json"
 			,dataType:"json"
 			,beforeSend:function(XHR) {
-				$(this).attr("disabled", true);
+				$("#btn_check").attr("disabled", true);
 			}
 			,success:function(data, textStatus, jqXHR) {
 				if (data) {
 					if (data.result) {
 						$("#msg").html("被使用了，换一个吧！").show();
 					} else {
-						$("#msg").html("赶快输入密码占有她吧！").show();
-						$("#content").html('<div class="row"><span id="msg" class="span3">'+s_name+'.'+s_domain+'</span></div><div class="input-control password span3"><input id="password" type="password" /><button class="helper"></button></div>');
+						$("#subdomain").val(s_name+"."+s_domain_text);
+						$("#msg").html("赶快输入密码占有她吧！");
+						$(".content_toggle").toggle();
 					}
 				}
 			}
 			,complete:function(XHR, TS) {
-				$(this).attr("disabled", false);
+				$("#btn_check").attr("disabled", false);
+			}
+		});
+	});
+	$("#btn_sub").click(function() {
+		var s_name = $("#subdomain").val();
+		var s_domain = $("#domain").val();
+		var s_password = $("#password").val();
+		$.ajax({
+			url:"${contextPath}/domain.json"
+			,type:"post"
+			,dataType:"json"
+			,data:{"name":s_name,"pid":s_domain,"plainPassword":s_password}
+			,beforeSend:function(XHR) {
+				$("#btn_sub").attr("disabled", true);
+			}
+			,success:function(data, textStatus, jqXHR) {
+				if (data) {
+					if (data.result) {
+						$("#msg").html('占有成功，去登录<a href="${contextPath}/login"><i class="icon-arrow-right-3 fg-color-red"></i></a>');
+					} else {
+						$("#msg").html("---");
+						$("#btn_sub").attr("disabled", false);
+					}
+				}
 			}
 		});
 	});

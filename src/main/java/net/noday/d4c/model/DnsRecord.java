@@ -18,7 +18,7 @@ public class DnsRecord implements Serializable {
 
 	private Long id;
 	private String subDomain;
-	private int recordType;
+	private RecordType recordType;
 	private int recordLine;
 	private String value;
 	private String mx;
@@ -37,10 +37,10 @@ public class DnsRecord implements Serializable {
 	public void setSubDomain(String subDomain) {
 		this.subDomain = subDomain;
 	}
-	public int getRecordType() {
+	public RecordType getRecordType() {
 		return recordType;
 	}
-	public void setRecordType(int recordType) {
+	public void setRecordType(RecordType recordType) {
 		this.recordType = recordType;
 	}
 	public int getRecordLine() {

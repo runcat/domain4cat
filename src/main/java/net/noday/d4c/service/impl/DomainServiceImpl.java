@@ -10,7 +10,10 @@ import net.noday.core.security.ShiroDbRealm.ShiroUser;
 import net.noday.core.service.SecurityService;
 import net.noday.core.utils.PasswordUtil;
 import net.noday.d4c.dao.DomainDao;
+import net.noday.d4c.model.DnsRecord;
 import net.noday.d4c.model.Domain;
+import net.noday.d4c.model.RecordType;
+import net.noday.d4c.service.DnsRecordService;
 import net.noday.d4c.service.DomainService;
 
 import org.apache.shiro.SecurityUtils;
@@ -25,6 +28,7 @@ import org.springframework.stereotype.Service;
 public class DomainServiceImpl implements SecurityService<Domain>, DomainService {
 
 	@Autowired private DomainDao dao;
+	@Autowired private DnsRecordService recordService;
 	
 	/* (non-Javadoc)
 	 * @see net.noday.d4c.service.impl.DomainService#findPage(int, net.noday.d4c.model.Domain)
@@ -43,8 +47,13 @@ public class DomainServiceImpl implements SecurityService<Domain>, DomainService
 	@Override
 	public Long save(Domain obj) {
 		PasswordUtil.entryptPassword(obj);
-		
-		return dao.save(obj);
+		Long id = dao.save(obj);
+		DnsRecord r = new DnsRecord();
+		r.setDomainId(id);
+		r.setSubDomain(obj.getName());
+		r.setRecordType(RecordType.CNAME);
+		recordService.save(r);
+		return id;
 	}
 	
 	/* (non-Javadoc)

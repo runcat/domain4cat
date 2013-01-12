@@ -15,6 +15,8 @@
  */
 package net.noday.d4c.service;
 
+import java.util.List;
+
 import net.noday.core.pagination.Page;
 import net.noday.d4c.model.DnsRecord;
 
@@ -36,5 +38,11 @@ public interface DnsRecordService {
 	public abstract DnsRecord get(Long id);
 
 	public abstract Page<DnsRecord> findPage(int index, DnsRecord condition);
+
+	/**
+	 * @param id
+	 * @return
+	 */
+	List<DnsRecord> findByDomainId(Long id);
 
 }

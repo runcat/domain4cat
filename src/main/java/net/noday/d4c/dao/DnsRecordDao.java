@@ -52,6 +52,11 @@ public class DnsRecordDao {
 		return r;
 	}
 	
+	public List<DnsRecord> findByDomainId(Long did) {
+		String sql = "select * from dnsrecord a where a.domain_id=?";
+		return jdbc.query(sql, new BeanPropertyRowMapper<DnsRecord>(DnsRecord.class), did);
+	}
+	
 	public List<DnsRecord> findPage(DnsRecord condition, int pIndex, int pSize) {
 		StringBuffer sql = new StringBuffer("select * from dnsrecord r where 1=1");
 		SqlParameterSource ps = null;

@@ -15,6 +15,8 @@
  */
 package net.noday.d4c.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -77,8 +79,9 @@ public class DnsRecordServiceImpl implements DnsRecordService {
 		page.setRows(dao.findPage(condition, page.getPageIndex(), page.getPageCount()));
 		return page;
 	}
-
-	public DnsRecordServiceImpl() {
-		super();
+	
+	@Override
+	public List<DnsRecord> findByDomainId(Long id) {
+		return dao.findByDomainId(id);
 	}
 }

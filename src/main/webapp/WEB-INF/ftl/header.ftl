@@ -54,7 +54,7 @@
                 </ul>
             </li>
 
-            <li><a href="https://github.com/olton/Metro-UI-CSS">Source</a></li>
+            <li><a href="${contextPath}/login">管理域名</a></li>
         </ul>
 
     </div>
