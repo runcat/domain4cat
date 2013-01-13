@@ -23,5 +23,20 @@ package net.noday.d4c.model;
  * @since 
  */
 public enum RecordType {
-	A, CNAME, TXT, NS, AAAA, MX, URL, SRV
+	A("A"), CNAME("A"), TXT("A"), NS("A"), AAAA("A"), MX("A"), URL("A"), SRV("A");
+	
+	private String value;
+	
+	RecordType(String value) {
+		this.value = value;
+	}
+
+	public String getValue() {
+		return value;
+	}
+
+	@Override
+	public String toString() {
+		return value;
+	}
 }

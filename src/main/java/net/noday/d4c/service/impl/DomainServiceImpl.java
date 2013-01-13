@@ -52,6 +52,9 @@ public class DomainServiceImpl implements SecurityService<Domain>, DomainService
 		r.setDomainId(id);
 		r.setSubDomain(obj.getName());
 		r.setRecordType(RecordType.CNAME);
+		r.setValue("");
+		r.setMx("-");
+		r.setTtl(600);
 		recordService.save(r);
 		return id;
 	}
