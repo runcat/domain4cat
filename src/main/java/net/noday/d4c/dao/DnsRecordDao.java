@@ -29,14 +29,14 @@ public class DnsRecordDao {
 
 	public long save(DnsRecord obj) {
         String sql = "insert into dnsrecord(sub_domain,record_type,record_line,value,mx,ttl,domain_id)" +
-        		" values(:subDomain,:recordTypeVal,:recordLine,:value,:mx,:ttl,:domainId)";
+        		" values(:subDomain,:recordType,:recordLine,:value,:mx,:ttl,:domainId)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         namedjdbc.update(sql, new BeanPropertySqlParameterSource(obj), keyHolder);
         return keyHolder.getKey().longValue();
 	}
 	
 	public void update(DnsRecord obj) {
-		String sql = "update dnsrecord set sub_domain=:subDomain,record_type=:recordTypeVal,record_line=:recordLine" +
+		String sql = "update dnsrecord set sub_domain=:subDomain,record_type=:recordType,record_line=:recordLine" +
 				",value=:value,ttl=:ttl where id=:id";
 		namedjdbc.update(sql, new BeanPropertySqlParameterSource(obj));
 	}

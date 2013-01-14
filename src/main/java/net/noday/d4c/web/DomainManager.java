@@ -67,6 +67,7 @@ public class DomainManager extends GeneralController<Domain, Long> {
 	@Override
 	public String list(Model m) {
 		responseData(m, recordService.findByDomainId(getUser().getId()));
+//		m.addAttribute("type", FreemarkerUtils.enum2list(RecordType.class.getName()));
 		return "main";
 	}
 	@Override

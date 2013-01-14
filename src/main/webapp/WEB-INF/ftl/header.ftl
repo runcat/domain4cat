@@ -4,7 +4,7 @@
         <span class="pull-menu"></span>
 
         <a href="/"><span class="element brand">
-            <img class="place-left" src="img/logo.png" style="height: 20px">
+            <img class="place-left" src="${contextPath}/img/logo.png" style="height: 20px">
             域猫 <small>域名共享</small>
         </span></a>
 

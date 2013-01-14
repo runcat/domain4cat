@@ -34,7 +34,7 @@
 	                        	<#list data as row>
 	                        	<td><input type="checkbox" /></td>
 	                        	<td class="right">${row.subDomain}</td>
-	                        	<td class="right">${row.recordType}</td>
+	                        	<td class="right">${row.recordTypeE}</td>
 	                        	<td class="right">${row.recordLine}</td>
 	                        	<td class="right">${row.value}</td>
 	                        	<td class="right">${row.mx}</td>
@@ -53,7 +53,7 @@
     </div>
 </div>
 <#include "footer.ftl">
-<script type="text/javascript" src="js/carousel.js"></script>
+<script type="text/javascript" src="${contextPath}/js/carousel.js"></script>
 <script type="text/javascript">
 $(function(){
 	$("#btn_check").click(function() {
