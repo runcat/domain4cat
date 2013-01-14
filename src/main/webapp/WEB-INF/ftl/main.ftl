@@ -39,7 +39,9 @@
 	                        	<td class="right">${row.value}</td>
 	                        	<td class="right">${row.mx}</td>
 	                        	<td class="right">${row.ttl}</td>
-	                        	<td class="right"></td>
+	                        	<td class="right">
+	                        		<a>编辑</a>
+	                        	</td>
 	                        	</#list>
 	                        </tr>
 	                    </tbody>
@@ -53,77 +55,9 @@
     </div>
 </div>
 <#include "footer.ftl">
-<script type="text/javascript" src="${contextPath}/js/carousel.js"></script>
 <script type="text/javascript">
-$(function(){
-	$("#btn_check").click(function() {
-		var s_name = $("#name").val();
-		var s_domain = $("#domain").val();
-		var s_domain_text = $("#domain").find("option:selected").text();
-		$.ajax({
-			url:"${contextPath}/domain/"+s_domain+"/valid/"+s_name+".json"
-			,dataType:"json"
-			,beforeSend:function(XHR) {
-				$("#btn_check").attr("disabled", true);
-			}
-			,success:function(data, textStatus, jqXHR) {
-				if (data) {
-					if (data.result) {
-						$("#msg").html("被使用了，换一个吧！").show();
-					} else {
-						$("#subdomain").val(s_name+"."+s_domain_text);
-						$("#msg").html("赶快输入密码占有她吧！");
-						$(".content_toggle").toggle();
-					}
-				}
-			}
-			,complete:function(XHR, TS) {
-				$("#btn_check").attr("disabled", false);
-			}
-		});
-	});
-	$("#btn_sub").click(function() {
-		var s_name = $("#subdomain").val();
-		var s_domain = $("#domain").val();
-		var s_password = $("#password").val();
-		$.ajax({
-			url:"${contextPath}/domain.json"
-			,type:"post"
-			,dataType:"json"
-			,data:{"name":s_name,"pid":s_domain,"plainPassword":s_password}
-			,beforeSend:function(XHR) {
-				$("#btn_sub").attr("disabled", true);
-			}
-			,success:function(data, textStatus, jqXHR) {
-				if (data) {
-					if (data.result) {
-						$("#msg").html('占有成功，去登录<a href="${contextPath}/login"><i class="icon-arrow-right-3 fg-color-red"></i></a>');
-					} else {
-						$("#msg").html("---");
-						$("#btn_sub").attr("disabled", false);
-					}
-				}
-			}
-		});
-	});
-    $('.github-info').each(function(){
-        var $container = $(this);
-        var repo = $container.data('repo');
-
-        $.ajax({
-            url: 'https://api.github.com/repos/' + repo,
-            dataType: 'jsonp',
-
-            success: function(results){
-                var repo = results.data;
-                var watchers = repo.watchers;
-                var forks = repo.forks;
-                //console.log(watchers, forks);
-                $(".github-watchers").html(watchers);
-                $(".github-forks").html(forks);
-            }
-        })
-    });
+$("table").find("tbody").find("tr").each(function() {
+	
 });
 </script>
 </body>
