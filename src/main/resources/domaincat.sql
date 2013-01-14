@@ -40,7 +40,7 @@ DROP TABLE IF EXISTS `dnsrecord`;
 CREATE TABLE `dnsrecord` (
   `id` int(11) NOT NULL auto_increment,
   `sub_domain` varchar(50) NOT NULL COMMENT '主机记录',
-  `record_type` enum('A','CNAME','TXT','NS','AAAA','MX','URL','SRV') NOT NULL COMMENT '记录类型',
+  `record_type` tinyint(4) NOT NULL COMMENT '记录类型A,CNAME,TXT,NS,AAAA,MX,URL,SRV',
   `record_line` tinyint(4) NOT NULL COMMENT '线路类型',
   `value` varchar(50) NOT NULL COMMENT '记录值',
   `mx` varchar(10) NOT NULL default '-' COMMENT 'mx优先级',

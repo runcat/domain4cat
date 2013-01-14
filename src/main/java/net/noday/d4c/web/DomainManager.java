@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import net.noday.core.web.GeneralController;
 import net.noday.d4c.model.Domain;
+import net.noday.d4c.service.DnsRecordService;
 import net.noday.d4c.service.DomainService;
 
 /**
@@ -25,6 +26,7 @@ import net.noday.d4c.service.DomainService;
 public class DomainManager extends GeneralController<Domain, Long> {
 
 	@Autowired private DomainService domainService;
+	@Autowired private DnsRecordService recordService;
 	
 	@Override
 	public String create() {
@@ -62,6 +64,11 @@ public class DomainManager extends GeneralController<Domain, Long> {
 		return "admin/article/add-success";
 	}
 
+	@Override
+	public String list(Model m) {
+		responseData(m, recordService.findByDomainId(getUser().getId()));
+		return "main";
+	}
 	@Override
 	public String list(@PathVariable("index") int index, Model m) {
 		responseData(m, domainService.findPage(index, null));

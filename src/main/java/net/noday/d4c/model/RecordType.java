@@ -34,6 +34,13 @@ public enum RecordType {
 	public String getValue() {
 		return value;
 	}
+	
+	public static RecordType valueOf(int ordinal) {
+		if (ordinal < 0 || ordinal >= RecordType.values().length) {
+			throw new IndexOutOfBoundsException("Invalid ordinal");
+		}
+		return values()[ordinal];
+	}
 
 	@Override
 	public String toString() {

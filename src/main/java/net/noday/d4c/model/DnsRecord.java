@@ -37,11 +37,14 @@ public class DnsRecord implements Serializable {
 	public void setSubDomain(String subDomain) {
 		this.subDomain = subDomain;
 	}
-	public RecordType getRecordTypeEnum() {
-		return recordType;
+	public int getRecordType() {
+		return recordType.ordinal();
 	}
-	public String getRecordType() {
-		return recordType.name();
+	public void setRecordType(int ordinal) {
+		this.recordType = RecordType.valueOf(ordinal);
+	}
+	public RecordType getRecordTypeE() {
+		return recordType;
 	}
 	public void setRecordType(RecordType recordType) {
 		this.recordType = recordType;
