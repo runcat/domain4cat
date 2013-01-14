@@ -23,7 +23,7 @@ package net.noday.d4c.model;
  * @since 
  */
 public enum RecordType {
-	A("A"), CNAME("A"), TXT("A"), NS("A"), AAAA("A"), MX("A"), URL("A"), SRV("A");
+	UNKOWN(""),A("A"), CNAME("CNAME"), TXT("TXT"), NS("NS"), AAAA("AAAA"), MX("MX"), URL("URL"), SRV("SRV");
 	
 	private String value;
 	

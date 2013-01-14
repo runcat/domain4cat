@@ -26,12 +26,11 @@
 	                            <th class="right">记录值</th>
 	                            <th class="right">MX优先级</th>
 	                            <th class="right">TTL</th>
-	                            <th class="right">操作</th>
 	                        </tr>
 	                    </thead>
 	                    <tbody>
-	                        <tr>
-	                        	<#list data as row>
+                        	<#list data as row>
+		                        <tr data-id=${row.id}>
 	                        	<td><input type="checkbox" /></td>
 	                        	<td class="right">${row.subDomain}</td>
 	                        	<td class="right">${row.recordTypeE}</td>
@@ -39,13 +38,45 @@
 	                        	<td class="right">${row.value}</td>
 	                        	<td class="right">${row.mx}</td>
 	                        	<td class="right">${row.ttl}</td>
-	                        	<td class="right">
-	                        		<a>编辑</a>
-	                        	</td>
-	                        	</#list>
-	                        </tr>
+		                        </tr>
+                        	</#list>
 	                    </tbody>
-	                    <tfoot></tfoot>
+	                    <tfoot>
+	                        <tr>
+	                            <th></th>
+	                            <th class="right">
+	                            	<input type="text" />
+	                            </th>
+	                            <th class="right">
+	                            	<select>
+	                            		<option value="1">A</option>
+	                            		<option value="2">CNAME</option>
+	                            		<option value="3">TXT</option>
+	                            		<option value="4">NS</option>
+	                            		<option value="5">AAAA</option>
+	                            		<option value="6">MX</option>
+	                            		<option value="7">URL</option>
+	                            		<option value="8">SRV</option>
+	                            	</select>
+	                            </th>
+	                            <th class="right">
+	                            	<select>
+	                            		<option value="1">默认</option>
+	                            	</select>
+	                            </th>
+	                            <th class="right">
+	                            	<input type="text" />
+	                            </th>
+	                            <th class="right">
+	                            -
+	                            </th>
+	                            <th class="right">
+	                            	<input type="text" />
+	                            </th>
+	                            <th class="right">
+	                            </th>
+	                        </tr>
+	                    </tfoot>
 	                </table>
                     </div>
                 </div>
@@ -57,7 +88,8 @@
 <#include "footer.ftl">
 <script type="text/javascript">
 $("table").find("tbody").find("tr").each(function() {
-	
+	var id = $(this).attr("data-id");
+	$(this).html();
 });
 </script>
 </body>
