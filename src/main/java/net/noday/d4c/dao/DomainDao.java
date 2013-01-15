@@ -53,6 +53,11 @@ public class DomainDao {
         return keyHolder.getKey().longValue();
 	}
 	
+	public Domain get(Long id) {
+		String sql = "select * from domain where id=?";
+		return jdbc.queryForObject(sql, new BeanPropertyRowMapper<Domain>(Domain.class), id);
+	}
+	
 	public boolean has(Long id, String subdomain) {
 		String sql = "select count(*) from domain where name=? and pid=?";
 		return jdbc.queryForInt(sql, id, subdomain) > 0;

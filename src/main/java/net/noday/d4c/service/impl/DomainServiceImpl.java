@@ -10,9 +10,7 @@ import net.noday.core.security.ShiroDbRealm.ShiroUser;
 import net.noday.core.service.SecurityService;
 import net.noday.core.utils.PasswordUtil;
 import net.noday.d4c.dao.DomainDao;
-import net.noday.d4c.model.DnsRecord;
 import net.noday.d4c.model.Domain;
-import net.noday.d4c.model.RecordType;
 import net.noday.d4c.service.DnsRecordService;
 import net.noday.d4c.service.DomainService;
 
@@ -48,14 +46,7 @@ public class DomainServiceImpl implements SecurityService<Domain>, DomainService
 	public Long save(Domain obj) {
 		PasswordUtil.entryptPassword(obj);
 		Long id = dao.save(obj);
-		DnsRecord r = new DnsRecord();
-		r.setDomainId(id);
-		r.setSubDomain(obj.getName());
-		r.setRecordType(RecordType.CNAME);
-		r.setValue("");
-		r.setMx("-");
-		r.setTtl(600);
-		recordService.save(r);
+		recordService.createRecord(obj.setId(id));
 		return id;
 	}
 	
@@ -80,7 +71,7 @@ public class DomainServiceImpl implements SecurityService<Domain>, DomainService
 	 */
 	@Override
 	public Domain get(Long id) {
-		return null;
+		return dao.get(id);
 	}
 
 	@Override

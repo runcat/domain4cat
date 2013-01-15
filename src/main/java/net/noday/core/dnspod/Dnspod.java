@@ -19,8 +19,14 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.noday.d4c.model.DnsRecord;
+
+import org.apache.commons.lang.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * cat AppStartupException
@@ -73,9 +79,92 @@ public class Dnspod {
 		return doc.body().text();
 	}
 	
+	public static final String urlDomainList = "https://dnsapi.cn/Domain.List";
+	/**
+	 * 获取域名列表
+	 * @return
+	 * @throws IOException
+	 */
+	public static String domainList() throws IOException {
+		Document doc = Jsoup.connect(urlDomainList)
+				.data(data)
+				.data("type", "all")
+//				.data("offset", "")
+//				.data("length", "")
+//				.data("group_id", "")
+				.userAgent(user_agent)
+				.post();
+		JSONObject o = JSON.parseObject(doc.body().text());
+		return o.toString();
+	}
+	
+	private static final String urlRecordCreate = "https://dnsapi.cn/Record.Create";
+	/**
+	 * 新增记录
+	 * domain_id 域名ID 
+	 * sub_domain - 主机记录, 如 www 
+	 * record_type 记录类型，通过API记录类型获得，大写英文，比如：A 
+	 * record_line 记录线路，通过API记录线路获得，中文，比如：默认 
+	 * value - 记录值, 如 IP:200.200.200.200, CNAME: cname.dnspod.com., MX: mail.dnspod.com.
+	 * mx {1-20} - MX优先级, 当记录类型是 MX 时有效，范围1-20 
+	 * ttl {1-604800} - TTL，范围1-604800，不同等级域名最小值不同
+	 */
+	public static String recordCreate(DnsRecord obj) {
+		Document doc;
+		try {
+			doc = Jsoup.connect(urlRecordCreate)
+					.data(data)
+					.data("domain_id", obj.getDomainId()+"")
+					.data("sub_domain", obj.getSubDomain())
+					.data("record_type", obj.getRecordTypeE().name())
+					.data("record_line", "默认")
+					.data("value", obj.getValue())
+					.data("mx", "1")
+					.data("ttl", obj.getTtl()+"")
+					.userAgent(user_agent)
+					.post();
+			JSONObject o = JSON.parseObject(doc.body().text());
+			String code = o.getJSONObject("status").getString("code");
+			if (StringUtils.equals(code, "1")) {
+				return o.getJSONObject("record").getString("id");
+			}
+			throw new DnspodException(o.getJSONObject("status").getString("message"));
+		} catch (IOException e) {
+			throw new DnspodException(e.getMessage());
+		}
+	}
+	
+	private static final String urlRecordModify = "https://dnsapi.cn/Record.Modify";
+	/**
+	 * 修改记录
+	 * domain_id 域名ID 
+	 * record_id 记录ID 
+	 * sub_domain - 主机记录, 如 www 
+	 * record_type 记录类型，通过API记录类型获得，大写英文，比如：A 
+	 * record_line 记录线路，通过API记录线路获得，中文，比如：默认 
+	 * value - 记录值, 如 IP:200.200.200.200, CNAME: cname.dnspod.com., MX: mail.dnspod.com.
+	 * mx {1-20} - MX优先级, 当记录类型是 MX 时有效，范围1-20 
+	 * ttl {1-604800} - TTL，范围1-604800，不同等级域名最小值不同
+	 */
+	public static String recordModify() throws IOException {
+		Document doc = Jsoup.connect(urlRecordModify)
+				.data(data)
+				.data("domain_id", "")
+				.data("record_id", "")
+				.data("sub_domain", "")
+				.data("record_type", "")
+				.data("record_line", "")
+				.data("value", "")
+				.data("mx", "")
+				.data("ttl", "")
+				.userAgent(user_agent)
+				.post();
+		return doc.body().text();
+	}
+	
 	public static void main(String[] args) {
 		try {
-			System.out.println(domainCreate("baoliao.info"));
+			System.out.println(domainList());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -25,6 +25,7 @@ public class DnsRecord implements Serializable {
 	private int ttl;
 	private boolean stopable;
 	private Long domainId;
+	private Long ownerId;
 	public Long getId() {
 		return id;
 	}
@@ -84,5 +85,11 @@ public class DnsRecord implements Serializable {
 	}
 	public void setDomainId(Long domainId) {
 		this.domainId = domainId;
+	}
+	public Long getOwnerId() {
+		return ownerId;
+	}
+	public void setOwnerId(Long ownerId) {
+		this.ownerId = ownerId;
 	}
 }

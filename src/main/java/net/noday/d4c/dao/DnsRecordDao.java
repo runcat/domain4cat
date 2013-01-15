@@ -28,8 +28,8 @@ public class DnsRecordDao {
 	@Autowired private NamedParameterJdbcTemplate namedjdbc;
 
 	public long save(DnsRecord obj) {
-        String sql = "insert into dnsrecord(sub_domain,record_type,record_line,value,mx,ttl,domain_id)" +
-        		" values(:subDomain,:recordType,:recordLine,:value,:mx,:ttl,:domainId)";
+        String sql = "insert into dnsrecord(id,sub_domain,record_type,record_line,value,mx,ttl,domain_id,owner_id)" +
+        		" values(:id,:subDomain,:recordType,:recordLine,:value,:mx,:ttl,:domainId,:ownerId)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         namedjdbc.update(sql, new BeanPropertySqlParameterSource(obj), keyHolder);
         return keyHolder.getKey().longValue();
@@ -52,9 +52,9 @@ public class DnsRecordDao {
 		return r;
 	}
 	
-	public List<DnsRecord> findByDomainId(Long did) {
-		String sql = "select * from dnsrecord a where a.domain_id=?";
-		return jdbc.query(sql, new BeanPropertyRowMapper<DnsRecord>(DnsRecord.class), did);
+	public List<DnsRecord> findByOwnerId(Long oid) {
+		String sql = "select * from dnsrecord a where a.owner_id=?";
+		return jdbc.query(sql, new BeanPropertyRowMapper<DnsRecord>(DnsRecord.class), oid);
 	}
 	
 	public List<DnsRecord> findPage(DnsRecord condition, int pIndex, int pSize) {

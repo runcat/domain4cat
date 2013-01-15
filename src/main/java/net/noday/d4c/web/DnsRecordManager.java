@@ -35,8 +35,8 @@ import net.noday.d4c.service.DnsRecordService;
  * @version , 2013-1-9
  * @since 
  */
-@Controller @RequestMapping("dnsrecord")
-public class DnsRecordController extends GeneralController<DnsRecord, Long> {
+@Controller @RequestMapping("admin/dnsrecord")
+public class DnsRecordManager extends GeneralController<DnsRecord, Long> {
 
 	@Autowired private DnsRecordService service;
 
@@ -77,7 +77,7 @@ public class DnsRecordController extends GeneralController<DnsRecord, Long> {
 	 */
 	@Override
 	public String edit(@PathVariable("id") Long id, Model m) {
-		m.addAttribute(service.get(id));
+		responseData(m, service.get(id));
 		return "admin/article/add";
 	}
 

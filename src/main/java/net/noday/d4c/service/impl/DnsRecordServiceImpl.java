@@ -20,10 +20,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import net.noday.core.dnspod.Dnspod;
 import net.noday.core.pagination.Page;
 import net.noday.d4c.dao.DnsRecordDao;
+import net.noday.d4c.dao.DomainDao;
 import net.noday.d4c.model.DnsRecord;
+import net.noday.d4c.model.Domain;
+import net.noday.d4c.model.RecordType;
 import net.noday.d4c.service.DnsRecordService;
+import net.noday.d4c.service.DomainService;
 
 /**
  * domain4cat DnsRecordServiceImpl
@@ -36,6 +41,7 @@ import net.noday.d4c.service.DnsRecordService;
 public class DnsRecordServiceImpl implements DnsRecordService {
 
 	@Autowired private DnsRecordDao dao;
+	@Autowired private DomainService domainService;
 	
 	/* (non-Javadoc)
 	 * @see net.noday.d4c.service.impl.DnsRecordService#save(net.noday.d4c.model.DnsRecord)
@@ -45,11 +51,34 @@ public class DnsRecordServiceImpl implements DnsRecordService {
 		return dao.save(obj);
 	}
 	
+	@Override
+	public void createRecord(Domain obj) {
+		Domain domain = domainService.get(obj.getPid());
+		// TODO 截取
+		DnsRecord r = new DnsRecord();
+		r.setDomainId(obj.getPid());
+		r.setOwnerId(obj.getId());
+		r.setSubDomain(obj.getName());
+		r.setRecordType(RecordType.CNAME);
+		r.setValue("www.runcat.org.");
+		r.setMx("-");
+		r.setTtl(600);
+		String recordId = Dnspod.recordCreate(r);
+		try {
+			r.setId(Long.parseLong(recordId));
+			save(r);
+		} catch (RuntimeException e) {
+			// TODO 删除dnspod中的记录
+			throw e;
+		}
+	}
+	
 	/* (non-Javadoc)
 	 * @see net.noday.d4c.service.impl.DnsRecordService#update(net.noday.d4c.model.DnsRecord)
 	 */
 	@Override
 	public void update(DnsRecord obj) {
+		
 		dao.update(obj);
 	}
 	
@@ -82,6 +111,6 @@ public class DnsRecordServiceImpl implements DnsRecordService {
 	
 	@Override
 	public List<DnsRecord> findByDomainId(Long id) {
-		return dao.findByDomainId(id);
+		return dao.findByOwnerId(id);
 	}
 }

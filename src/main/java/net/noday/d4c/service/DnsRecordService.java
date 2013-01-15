@@ -19,6 +19,7 @@ import java.util.List;
 
 import net.noday.core.pagination.Page;
 import net.noday.d4c.model.DnsRecord;
+import net.noday.d4c.model.Domain;
 
 /**
  * domain4cat DnsRecordService
@@ -44,5 +45,7 @@ public interface DnsRecordService {
 	 * @return
 	 */
 	List<DnsRecord> findByDomainId(Long id);
+
+	void createRecord(Domain obj);
 
 }

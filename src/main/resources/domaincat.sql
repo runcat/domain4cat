@@ -24,7 +24,7 @@ CREATE TABLE `domain` (
   `password` varchar(44) NOT NULL COMMENT '密码',
   `salt` varchar(16) NOT NULL COMMENT '密码盐',
   `status` tinyint(4) NOT NULL default '1' COMMENT '状态',
-  `pid` tinyint(4) default NULL COMMENT '域名id，有了说明是二级域名',
+  `pid` int(11) default NULL COMMENT '域名id，有了说明是二级域名',
   `regist_time` timestamp NOT NULL default CURRENT_TIMESTAMP COMMENT '注册时间',
   `regist_ip` varchar(32) default NULL COMMENT '注册ip',
   `last_time` timestamp NULL COMMENT '最后登录时间',
@@ -33,7 +33,7 @@ CREATE TABLE `domain` (
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-insert into `domain`(`name`,`password`,`salt`) values('runcat.org','K50paAp6XRU6xMt5VmmQvEVfe33hfgxHDRx1gYYxNTU=','0VSG15LOUN4=');
+insert into `domain`(`id`,`name`,`password`,`salt`) values(2723144,'runcat.org','K50paAp6XRU6xMt5VmmQvEVfe33hfgxHDRx1gYYxNTU=','0VSG15LOUN4=');
 
 DROP TABLE IF EXISTS `dnsrecord`;
 
@@ -47,5 +47,6 @@ CREATE TABLE `dnsrecord` (
   `ttl` int(11) NOT NULL default 600 COMMENT 'TTL',
   `stopable` tinyint(1) NOT NULL default 0 COMMENT '暂停使用',
   `domain_id` int(11) NOT NULL COMMENT '域名id',
+  `owner_id` int(11) NOT NULL COMMENT '用户id',
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
