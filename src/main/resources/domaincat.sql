@@ -14,7 +14,7 @@ CREATE TABLE `app_config` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-insert into `app_config`(`id`,`version`,`web_title`,`sub_title`,`host_url`,`meta_keywords`,`meta_description`,`board_source`,`hidden_source`,`registable`) values (1,'1.0','蓄势待发','come on',NULL,NULL,NULL,NULL,NULL,1);
+insert into `app_config`(`id`,`version`,`web_title`,`sub_title`,`host_url`,`meta_keywords`,`meta_description`,`board_source`,`hidden_source`,`registable`) values (1,'1.0','域猫','come on',NULL,NULL,NULL,NULL,NULL,1);
 
 DROP TABLE IF EXISTS `domain`;
 
