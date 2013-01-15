@@ -3,7 +3,7 @@
     <div class="nav-bar-inner padding10">
         <span class="pull-menu"></span>
 
-        <a href="/"><span class="element brand">
+        <a href="${contextPath}"><span class="element brand">
             <img class="place-left" src="${contextPath}/img/logo.png" style="height: 20px">
             域猫 <small>域名共享</small>
         </span></a>
@@ -11,7 +11,8 @@
         <div class="divider"></div>
 
         <ul class="menu">
-            <li><a href="/">Home</a></li>
+            <li><a href="${contextPath}">Home</a></li>
+            <#--
             <li data-role="dropdown">
                 <a href="#">Scaffolding</a>
                 <ul class="dropdown-menu" style="overflow: hidden; ">
@@ -53,8 +54,8 @@
                     <li><a href="cards.php">Bonus - Deck of Cards</a></li>
                 </ul>
             </li>
-
-            <li><a href="${contextPath}/login">管理域名</a></li>
+				-->
+            <li><a href="${contextPath}/login">管理我的域名</a></li>
         </ul>
 
     </div>

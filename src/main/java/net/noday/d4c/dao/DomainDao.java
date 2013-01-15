@@ -60,7 +60,7 @@ public class DomainDao {
 	
 	public boolean has(Long id, String subdomain) {
 		String sql = "select count(*) from domain where name=? and pid=?";
-		return jdbc.queryForInt(sql, id, subdomain) > 0;
+		return jdbc.queryForInt(sql, subdomain, id) > 0;
 	}
 	
 	public List<Domain> findDomain() {

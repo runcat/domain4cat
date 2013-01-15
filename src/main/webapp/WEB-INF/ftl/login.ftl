@@ -18,7 +18,7 @@
                     <div class="span6">
 					        <img src="${contextPath}/img/cat.png" />
 					        <p class="tertiary-info-secondary-text bg-color-grayDark" style="padding: 10px; color: #fff;">
-                            
+                            百败而其志不折，即使慢，弛而不息，纵会落后，纵会失败，但一定可以达到他所向的目标。
                         </p>
                     </div>
                     <div class="span6">
@@ -47,7 +47,6 @@
                         </div>
                     </div>
                 </div>
-            	<div class="row padding40"></div>
             </div>
         </div>
     </div>

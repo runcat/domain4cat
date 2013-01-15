@@ -25,32 +25,37 @@
                                 <div class="slides">
 
                                     <div class="slide" id="slide1" style="display: block; left: 0px; ">
-                                        <h2>申请二级域名</h2>
+                                        <h2>域猫干什么</h2>
 										<br>
-                                        <p class="bg-color-pink padding20 fg-color-white">
-                                            Developed with the advice of Microsoft to build the user interface and <strong>include:</strong>
+                                        <p class="bg-color-blueDark padding20 fg-color-white">
+                                            将域名托管到域猫，不明真相的群众就可以申请、使用和管理此域名的二级域名。<br>
+                                            二级域名用户可以管理此二级域名记录，支持A、CNAME、URL等…<br>
+                                            由域猫负责该域名记录的维护和管理。<br>
+                                            域猫系统目前功能粗糙，希望广大基友共同开发分享、域名管理等功能。
                                         </p>
                                         
                                     </div>
 
                                     <div class="slide" id="slide2" style="display: block; left: -580px; ">
                                         <h2 class="fg-color-darken">分享域名</h2>
-                                        <p class="bg-color-pink padding20 fg-color-white">
-                                            我想将我闲置的域名<strong><a href="#">共享</a></strong>给大家用
+                                        <p class="bg-color-red padding20 fg-color-white">
+                                            我想将我闲置的域名<strong>共享</strong>给大家用？<br>
+                                            分享功能尚未上线，可联系at1943@gmail.com完成分享。<br>
+                                            分享前请考核以下分享条件：
                                         </p>
 
                                         <div class="span3 place-left">
                                             <ul class="unstyled sprite-details">
-                                                <li><i class="icon-checkmark"></i> General styles</li>
-                                                <li><i class="icon-checkmark"></i> Grid with Responsive</li>
-                                                <li><i class="icon-checkmark"></i> Layouts</li>
+                                                <li><i class="icon-checkmark"></i> 拥有域名</li>
+                                                <li><i class="icon-checkmark"></i> dns记录设置到dnspod.cn</li>
+                                                <li><i class="icon-checkmark"></i> 及时续费</li>
                                             </ul>
                                         </div>
                                         <div class="span3 place-left">
                                             <ul class="unstyled sprite-details">
-                                                <li><i class="icon-checkmark"></i> Typography</li>
-                                                <li><i class="icon-checkmark"></i> Many components</li>
-                                                <li><i class="icon-checkmark"></i> 300+ built in icons</li>
+                                                <li><i class="icon-checkmark"></i> 愿托管到域猫分享</li>
+                                                <li><i class="icon-checkmark"></i> 域名由域猫管理解析</li>
+                                                <li><i class="icon-checkmark"></i> 承诺1年以上的共享期</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -96,7 +101,7 @@
 									    <input id="btn_sub" type="button" value="占有"/>
                             	</div>
 									    <div class="row">
-									    	<span id="msg" class="span3">输入并选择</span>
+									    	<span id="msg" class="span3">输入并选择喜欢的域名</span>
 									    </div>
                         </div>
                     </div>
@@ -118,7 +123,7 @@
 	                    </div>
                 		</div>
                 		<div class="row">
-	                    <div class="span4 bg-color-red">
+	                    <div class="span4 bg-color-pink">
 	                        <img src="images/logo32.png" class="place-right" style="margin: 10px;height: 48px;">
 	                        <h2 class="fg-color-white">&nbsp;详细管理面板</h2>
 	                    </div>
@@ -143,7 +148,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2" style="padding: 20px 0 0; border: 0;">
-                                    <button class="image-button bg-color-pink fg-color-white" onclick="document.location.href='https://github.com/olton/Metro-UI-CSS'">View on Github<img class="bg-color-pinkDark" src="images/github.png"></button>
+                                    <button class="image-button bg-color-orange fg-color-white" onclick="document.location.href='https://github.com/olton/Metro-UI-CSS'">View on Github<img class="bg-color-pinkDark" src="images/github.png"></button>
                                     <button class="image-button bg-color-darken fg-color-white" onclick="document.location.href='https://github.com/olton/Metro-UI-CSS/zipball/master'">Download<img class="bg-color-green" src="images/download-32.png"></button>
                                 </td>
                             </tr>
@@ -204,7 +209,7 @@ $(function(){
 					if (data.result) {
 						$("#msg").html('占有成功，去登录<a href="${contextPath}/login"><i class="icon-arrow-right-3 fg-color-red"></i></a>');
 					} else {
-						$("#msg").html("---");
+						$("#msg").html(data.message);
 						$("#btn_sub").attr("disabled", false);
 					}
 				}
