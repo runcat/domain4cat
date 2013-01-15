@@ -98,7 +98,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 			UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
 			// TODO 验证 根据token
 			Domain user = service.findUserByLoginName(token.getUsername());
-			return new SimpleAuthenticationInfo(new ShiroUser(user.getId(), user.getName(), user.getName()), user.getPassword(), ByteSource.Util.bytes(Base64.decode(user.getSalt())), getName());
+			return new SimpleAuthenticationInfo(new ShiroUser(user.getId(), user.getFullname(), user.getName()), user.getPassword(), ByteSource.Util.bytes(Base64.decode(user.getSalt())), getName());
 		}
 		return null;
 	}

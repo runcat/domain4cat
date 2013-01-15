@@ -48,6 +48,7 @@ public class Dnspod {
 	//{yes,no} 没有数据时是否返回错误，可选，默认为yes，建议用no
 	private static final String ERROR_ON_EMPTY = "error_on_empty";
 	//用户的ID，可选，仅代理接口需要， 用户接口不需要提交此参数
+	@SuppressWarnings("unused")
 	private static final String USER_ID = "user_id";
 	
 	private static Map<String, String> data = new HashMap<String, String>();
@@ -146,20 +147,29 @@ public class Dnspod {
 	 * mx {1-20} - MX优先级, 当记录类型是 MX 时有效，范围1-20 
 	 * ttl {1-604800} - TTL，范围1-604800，不同等级域名最小值不同
 	 */
-	public static String recordModify() throws IOException {
-		Document doc = Jsoup.connect(urlRecordModify)
-				.data(data)
-				.data("domain_id", "")
-				.data("record_id", "")
-				.data("sub_domain", "")
-				.data("record_type", "")
-				.data("record_line", "")
-				.data("value", "")
-				.data("mx", "")
-				.data("ttl", "")
-				.userAgent(user_agent)
-				.post();
-		return doc.body().text();
+	public static String recordModify(DnsRecord obj) {
+		try {
+			Document doc = Jsoup.connect(urlRecordModify)
+					.data(data)
+					.data("domain_id", obj.getDomainId()+"")
+					.data("record_id", obj.getId()+"")
+					.data("sub_domain", obj.getSubDomain())
+					.data("record_type", obj.getRecordTypeE().name())
+					.data("record_line", "默认")
+					.data("value", obj.getValue())
+					.data("mx", "1")
+					.data("ttl", obj.getTtl()+"")
+					.userAgent(user_agent)
+					.post();
+			JSONObject o = JSON.parseObject(doc.body().text());
+			String code = o.getJSONObject("status").getString("code");
+			if (StringUtils.equals(code, "1")) {
+				return o.getJSONObject("record").getString("id");
+			}
+			throw new DnspodException(o.getJSONObject("status").getString("message"));
+		} catch (IOException e) {
+			throw new DnspodException(e.getMessage());
+		}
 	}
 	
 	public static void main(String[] args) {

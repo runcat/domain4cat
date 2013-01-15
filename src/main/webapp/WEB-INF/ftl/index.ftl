@@ -187,14 +187,15 @@ $(function(){
 		});
 	});
 	$("#btn_sub").click(function() {
-		var s_name = $("#subdomain").val();
+		var s_name = $("#name").val();
+		var s_fullname = $("#subdomain").val();
 		var s_domain = $("#domain").val();
 		var s_password = $("#password").val();
 		$.ajax({
 			url:"${contextPath}/domain.json"
 			,type:"post"
 			,dataType:"json"
-			,data:{"name":s_name,"pid":s_domain,"plainPassword":s_password}
+			,data:{"name":s_name,"fullname":s_fullname,"pid":s_domain,"plainPassword":s_password}
 			,beforeSend:function(XHR) {
 				$("#btn_sub").attr("disabled", true);
 			}

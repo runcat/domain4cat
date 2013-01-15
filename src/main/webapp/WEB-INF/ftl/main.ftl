@@ -24,9 +24,9 @@ background: url("${contextPath}/images/preloader-w8-line-black.gif");
 			<div class="grid">
 				<div class="row">
 					<div class="span12">
-						<h3><@shiro.principal/></h3>
-						<a id="switch" class="no-display"></a>
-						<a id="switch_off" class="no-display"></a>
+						<h3 class="as-inline-block"><@shiro.principal/></h3>
+						<a id="switch1" class="no-display"></a>
+						<a id="switch1_off" class="no-display"></a>
 						<table class="hovered bordered striped">
 							<thead>
 								<tr>
@@ -67,6 +67,17 @@ background: url("${contextPath}/images/preloader-w8-line-black.gif");
 <#include "footer.ftl">
 <script type="text/javascript" src="${contextPath}/js/jquery.allofthelights.js"></script>
 <script type="text/javascript">
+var recordTypeTem = '<select>\
+									<option value="1">A</option>\
+									<option value="2">CNAME</option>\
+									<option value="3">TXT</option>\
+									<option value="4">NS</option>\
+									<option value="5">AAAA</option>\
+									<option value="6">MX</option>\
+									<option value="7">URL</option>\
+									<option value="8">SRV</option>\
+							</select>';
+var recordLineTem = '<select><option value="1">默认</option></select>';
 $("table").find("h6").live('click', function() {
 	var _this = $(this);
 	var tr = _this.parent().parent();
@@ -82,41 +93,26 @@ $("table").find("h6").live('click', function() {
 					if (data.result) {
 						var r = data.data;
 						var trclone = tr.clone();
-						tr.html('<td></td>\
-							<td class="right">'+r.subDomain+'</td>\
-							<td class="right">\
-								<select>\
-									<option value="1">A</option>\
-									<option value="2">CNAME</option>\
-									<option value="3">TXT</option>\
-									<option value="4">NS</option>\
-									<option value="5">AAAA</option>\
-									<option value="6">MX</option>\
-									<option value="7">URL</option>\
-									<option value="8">SRV</option>\
-							</select></td>\
-							<td class="right"><select>\
-									<option value="1">默认</option>\
-							</select></td>\
-							<td class="right"><input type="text" value="'+r.value+'" /></td>\
-							<td class="right">-</td>\
-							<td class="right"><input type="text" value="'+r.ttl+'" /></td>\
-							<td class="right">\
-								<a id="ok" class="clickable">确定</a>\
-								<a id="cancel" class="clickable">取消</a>\
-							</td>');
+						tr.find("h6").hide();
+						var tds = tr.find("td");
+						tr.allofthelights({"switch_id":"switch1","opacity":"0.3"});
+						$("#switch1").click();
+						$(tds[2]).html(recordTypeTem);
+						$(tds[3]).html(recordLineTem);
+						$(tds[4]).html('<input type="text" value="'+r.value+'" />');
+						$(tds[6]).html('<input type="text" value="'+r.ttl+'" />');
+						$(tds[7]).html('<a id="ok" class="clickable">确定</a><a id="cancel" class="clickable">取消</a>');
 						tr.find("select").val(r.recordType);
-						tr.allofthelights({"opacity":"0.3"});
-						$("#switch").click();
 						$("#cancel").click(function(){
-							$("#switch_off").click();
 							tr.html(trclone.find("td"));
+							$("#switch1_off").click();
+							tr.find("h6").show();
 						});
 						$("#ok").click(function(){
 							var inputs = tr.find("input");
 							r.recordType = tr.find("select").val();
-							r.value = inputs[0].val();
-							r.ttl = inputs[1].val();
+							r.value = inputs[0].value;
+							r.ttl = inputs[1].value;
 							$.ajax({
 								url:"${contextPath}/admin/dnsrecord/"+id+".json"
 									,type:"post"
@@ -125,8 +121,13 @@ $("table").find("h6").live('click', function() {
 									,success:function(data, textStatus, jqXHR) {
 										if (data) {
 											if (data.result) {
-
-												$("#switch_off").click();
+												$(tds[2]).html(data.dnsRecord.recordTypeE);
+												$(tds[3]).html(data.dnsRecord.recordLine);
+												$(tds[4]).html(data.dnsRecord.value);
+												$(tds[6]).html(data.dnsRecord.ttl);
+												$(tds[7]).html("");
+												$("#switch1_off").click();
+												tr.find("h6").show();
 											} else {
 												alert(data.message);
 											}

@@ -21,6 +21,7 @@ DROP TABLE IF EXISTS `domain`;
 CREATE TABLE `domain` (
   `id` int(11) NOT NULL auto_increment,
   `name` varchar(50) NOT NULL COMMENT '域名',
+  `fullname` varchar(80) NOT NULL COMMENT '全域名',
   `password` varchar(44) NOT NULL COMMENT '密码',
   `salt` varchar(16) NOT NULL COMMENT '密码盐',
   `status` tinyint(4) NOT NULL default '1' COMMENT '状态',
@@ -33,7 +34,7 @@ CREATE TABLE `domain` (
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-insert into `domain`(`id`,`name`,`password`,`salt`) values(2723144,'runcat.org','K50paAp6XRU6xMt5VmmQvEVfe33hfgxHDRx1gYYxNTU=','0VSG15LOUN4=');
+insert into `domain`(`id`,`name`,`fullname`,`password`,`salt`) values(2723144,'runcat.org','runcat.org','K50paAp6XRU6xMt5VmmQvEVfe33hfgxHDRx1gYYxNTU=','0VSG15LOUN4=');
 
 DROP TABLE IF EXISTS `dnsrecord`;
 

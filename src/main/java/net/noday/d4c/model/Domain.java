@@ -21,6 +21,7 @@ public class Domain implements Registable, Serializable {
 
 	private Long id;
 	private String name;
+	private String fullname;
 	private String email;
 	private String password;
 	private String salt;
@@ -114,5 +115,11 @@ public class Domain implements Registable, Serializable {
 	}
 	public void setPlainPassword(String plainPassword) {
 		this.plainPassword = plainPassword;
+	}
+	public String getFullname() {
+		return fullname;
+	}
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
 	}
 }

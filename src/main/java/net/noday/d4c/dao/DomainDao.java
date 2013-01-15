@@ -47,7 +47,7 @@ public class DomainDao {
 	@Autowired private NamedParameterJdbcTemplate namedJdbc;
 	
 	public long save(Domain obj) {
-        String sql = "insert into domain(name,password,salt,pid) values(:name,:password,:salt,:pid)";
+        String sql = "insert into domain(name,fullname,password,salt,pid) values(:name,:fullname,:password,:salt,:pid)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         namedJdbc.update(sql, new BeanPropertySqlParameterSource(obj), keyHolder);
         return keyHolder.getKey().longValue();
@@ -69,7 +69,7 @@ public class DomainDao {
 	}
 	
 	public Domain findUserByDomain(String domain) {
-		String sql = "select * from domain d where d.name=? limit 1";
+		String sql = "select * from domain d where d.fullname=? limit 1";
 		Domain u = jdbc.queryForObject(sql, new BeanPropertyRowMapper<Domain>(Domain.class), domain);
 		return u;
 	}

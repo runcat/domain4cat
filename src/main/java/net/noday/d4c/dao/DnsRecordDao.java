@@ -36,8 +36,7 @@ public class DnsRecordDao {
 	}
 	
 	public void update(DnsRecord obj) {
-		String sql = "update dnsrecord set sub_domain=:subDomain,record_type=:recordType,record_line=:recordLine" +
-				",value=:value,ttl=:ttl where id=:id";
+		String sql = "update dnsrecord set record_type=:recordType,value=:value,ttl=:ttl where id=:id";
 		namedjdbc.update(sql, new BeanPropertySqlParameterSource(obj));
 	}
 	

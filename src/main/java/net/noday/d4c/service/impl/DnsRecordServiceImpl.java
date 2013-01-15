@@ -23,7 +23,6 @@ import org.springframework.stereotype.Service;
 import net.noday.core.dnspod.Dnspod;
 import net.noday.core.pagination.Page;
 import net.noday.d4c.dao.DnsRecordDao;
-import net.noday.d4c.dao.DomainDao;
 import net.noday.d4c.model.DnsRecord;
 import net.noday.d4c.model.Domain;
 import net.noday.d4c.model.RecordType;
@@ -53,8 +52,6 @@ public class DnsRecordServiceImpl implements DnsRecordService {
 	
 	@Override
 	public void createRecord(Domain obj) {
-		Domain domain = domainService.get(obj.getPid());
-		// TODO 截取
 		DnsRecord r = new DnsRecord();
 		r.setDomainId(obj.getPid());
 		r.setOwnerId(obj.getId());
@@ -78,8 +75,9 @@ public class DnsRecordServiceImpl implements DnsRecordService {
 	 */
 	@Override
 	public void update(DnsRecord obj) {
-		
 		dao.update(obj);
+		DnsRecord r = get(obj.getId());
+		Dnspod.recordModify(r);
 	}
 	
 	/* (non-Javadoc)
