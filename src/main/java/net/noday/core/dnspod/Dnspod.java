@@ -53,8 +53,8 @@ public class Dnspod {
 	
 	private static Map<String, String> data = new HashMap<String, String>();
 	static {
-		data.put(LOGIN_EMAIL, "yaoniming2000@gmail.com");
-		data.put(LOGIN_PASSWORD, "yaoniming");
+		data.put(LOGIN_EMAIL, "---2000@gmail.com");
+		data.put(LOGIN_PASSWORD, "---");
 		data.put(FORMAT, "json");
 		data.put(LANG, "cn");
 		data.put(ERROR_ON_EMPTY, "no");
