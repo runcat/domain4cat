@@ -26,6 +26,7 @@
 		<property name="mediaTypes">
 			<description>favorPathExtension, favorParameter是true时才起作用</description>
 			<map>
+				<description>org.springframework.http.MediaType.TEXT_HTML</description>
 				<entry key="html" value="text/html" />
 				<entry key="json" value="application/json" />
 				<entry key="xml" value="application/xml" />
