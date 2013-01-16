@@ -3,15 +3,15 @@
     <div class="nav-bar-inner padding10">
         <span class="pull-menu"></span>
 
-        <a href="${contextPath}"><span class="element brand">
+        <a href="${cfg.hostUrl}${contextPath}"><span class="element brand">
             <img class="place-left" src="${contextPath}/img/logo.png" style="height: 20px">
-            域猫 <small>域名共享</small>
+            ${cfg.webTitle} <small>域名共享</small>
         </span></a>
 
         <div class="divider"></div>
 
         <ul class="menu">
-            <li><a href="${contextPath}">Home</a></li>
+            <li><a href="${cfg.hostUrl}${contextPath}">Home</a></li>
             <#--
             <li data-role="dropdown">
                 <a href="#">Scaffolding</a>

@@ -15,7 +15,7 @@
             <div class="grid">
                 <div class="row">
                     <div class="span12 padding10 fg-color-darken text-center">
-                        分享你的域名，成就万千用户！
+                        分享你的域名，成就万千用户！<i>请使用IE9+等现代浏览器</i>
                     </div>
                 </div>
                 <div class="row">
