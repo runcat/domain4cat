@@ -45,4 +45,15 @@ public class DomainController extends BaseController {
 		return "";
 	}
 
+	@RequestMapping(value = "share", method = RequestMethod.GET)
+	public String share() {
+		
+		return null;
+	}
+	
+	@RequestMapping(value = "share", method = RequestMethod.POST)
+	public String share(@Valid Domain obj, BindingResult result, Model m) {
+		
+		return null;
+	}
 }
