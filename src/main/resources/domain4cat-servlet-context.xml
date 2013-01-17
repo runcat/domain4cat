@@ -82,6 +82,11 @@
 		<property name="suffix" value=".ftl" />
 		<property name="contentType" value="text/html; charset=utf-8" />
 	</bean>
+	<!-- 
+	<bean class="httl.web.springmvc.HttlViewResolver">
+		<property name="contentType" value="text/html; charset=UTF-8" />
+	</bean>
+	 -->
 
 	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basename" value="classpath:i18n/messages" />
