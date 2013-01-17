@@ -22,7 +22,7 @@ import org.springframework.stereotype.Repository;
  *
  */
 @Repository
-public class DnsRecordDao {
+public class DnsrecordDao {
 
 	@Autowired private JdbcTemplate jdbc;
 	@Autowired private NamedParameterJdbcTemplate namedjdbc;

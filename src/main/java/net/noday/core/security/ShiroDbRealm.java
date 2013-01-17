@@ -27,7 +27,6 @@ import net.noday.core.security.IncorrectCaptchaException;
 import net.noday.core.service.SecurityService;
 import net.noday.core.utils.Captcha;
 import net.noday.core.utils.Digests;
-import net.noday.d4c.model.Domain;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -61,11 +60,12 @@ public class ShiroDbRealm extends AuthorizingRealm {
 
 	public static final String LOGINFAILEDCOUNTKEY = "longin_failed_count";
 	
-	protected SecurityService<Domain> service;
+	protected SecurityService<Loginable<Long>> service;
 	private CredentialsMatcher  hashedCredentialsMatcher;
+	@SuppressWarnings("unused")
 	private CredentialsMatcher  allowAllCredentialsMatcher;
 
-	public void setService(SecurityService<Domain> service) {
+	public void setService(SecurityService<Loginable<Long>> service) {
 		this.service = service;
 	}
 
@@ -88,17 +88,16 @@ public class ShiroDbRealm extends AuthorizingRealm {
 				throw new IncorrectCaptchaException("验证码错误");
 			}
 			
-			Domain user = service.findUserByLoginName(token.getUsername());
+			Loginable<Long> user = service.findUserByLoginName(token.getUsername());
 			if (user != null) {
-				return new SimpleAuthenticationInfo(new ShiroUser(user.getId(), user.getEmail(), user.getName()),// 为什么不直接用User呐？
+				return new SimpleAuthenticationInfo(new ShiroUser(user.getId(), user.getLoginName(), user.getName()),// 为什么不直接用User呐？
 						user.getPassword(), ByteSource.Util.bytes(Base64.decode(user.getSalt())), getName());
 			}
 		} else {
 			setCredentialsMatcher(hashedCredentialsMatcher);
 			UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
-			// TODO 验证 根据token
-			Domain user = service.findUserByLoginName(token.getUsername());
-			return new SimpleAuthenticationInfo(new ShiroUser(user.getId(), user.getFullname(), user.getName()), user.getPassword(), ByteSource.Util.bytes(Base64.decode(user.getSalt())), getName());
+			Loginable<Long> user = service.findUserByLoginName(token.getUsername());
+			return new SimpleAuthenticationInfo(new ShiroUser(user.getId(), user.getLoginName(), user.getName()), user.getPassword(), ByteSource.Util.bytes(Base64.decode(user.getSalt())), getName());
 		}
 		return null;
 	}

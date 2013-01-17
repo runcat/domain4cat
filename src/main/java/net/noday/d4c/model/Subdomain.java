@@ -13,7 +13,7 @@ import net.noday.core.security.Registable;
  * @author Administrator
  *
  */
-public class Domain implements Registable, Loginable<Long>, Serializable {
+public class Subdomain implements Registable, Loginable<Long>, Serializable {
 
 	/**
 	 * 
@@ -22,11 +22,12 @@ public class Domain implements Registable, Loginable<Long>, Serializable {
 
 	private Long id;
 	private String name;
+	private String fullname;
 	private String password;
 	private String salt;
 	private String email;
 	private int status;
-	private String dnspodDomainId;
+	private String dnsDomainId;
 	private Date registTime;
 	private String registIp;
 	private Date lastTime;
@@ -37,7 +38,7 @@ public class Domain implements Registable, Loginable<Long>, Serializable {
 	public Long getId() {
 		return id;
 	}
-	public Domain setId(Long id) {
+	public Subdomain setId(Long id) {
 		this.id = id;
 		return this;
 	}
@@ -76,11 +77,11 @@ public class Domain implements Registable, Loginable<Long>, Serializable {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	public String getDnspodDomainId() {
-		return dnspodDomainId;
+	public String getDnsDomainId() {
+		return dnsDomainId;
 	}
-	public void setDnspodDomainId(String dnspodDomainId) {
-		this.dnspodDomainId = dnspodDomainId;
+	public void setDnsDomainId(String dnsDomainId) {
+		this.dnsDomainId = dnsDomainId;
 	}
 	public Date getRegistTime() {
 		return registTime;
@@ -119,8 +120,14 @@ public class Domain implements Registable, Loginable<Long>, Serializable {
 	public void setPlainPassword(String plainPassword) {
 		this.password = plainPassword;
 	}
+	public String getFullname() {
+		return fullname;
+	}
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
+	}
 	@Override
 	public String getLoginName() {
-		return name;
+		return fullname;
 	}
 }

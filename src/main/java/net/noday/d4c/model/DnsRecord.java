@@ -24,8 +24,9 @@ public class DnsRecord implements Serializable {
 	private String mx;
 	private int ttl;
 	private boolean stopable;
-	private Long domainId;
-	private Long ownerId;
+	private Long subdomainId;
+	private String dnspodRecordId;
+	private String dnspodDomainId;
 	public Long getId() {
 		return id;
 	}
@@ -80,16 +81,22 @@ public class DnsRecord implements Serializable {
 	public void setStopable(boolean stopable) {
 		this.stopable = stopable;
 	}
-	public Long getDomainId() {
-		return domainId;
+	public Long getSubdomainId() {
+		return subdomainId;
 	}
-	public void setDomainId(Long domainId) {
-		this.domainId = domainId;
+	public void setSubdomainId(Long subdomainId) {
+		this.subdomainId = subdomainId;
 	}
-	public Long getOwnerId() {
-		return ownerId;
+	public String getDnspodRecordId() {
+		return dnspodRecordId;
 	}
-	public void setOwnerId(Long ownerId) {
-		this.ownerId = ownerId;
+	public void setDnspodRecordId(String dnspodRecordId) {
+		this.dnspodRecordId = dnspodRecordId;
+	}
+	public String getDnspodDomainId() {
+		return dnspodDomainId;
+	}
+	public void setDnspodDomainId(String dnspodDomainId) {
+		this.dnspodDomainId = dnspodDomainId;
 	}
 }

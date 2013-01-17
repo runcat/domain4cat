@@ -19,7 +19,7 @@ import java.util.List;
 
 import net.noday.core.pagination.Page;
 import net.noday.d4c.model.DnsRecord;
-import net.noday.d4c.model.Domain;
+import net.noday.d4c.model.Subdomain;
 
 /**
  * domain4cat DnsRecordService
@@ -28,7 +28,7 @@ import net.noday.d4c.model.Domain;
  * @version , 2013-1-11
  * @since 
  */
-public interface DnsRecordService {
+public interface DnsrecordService {
 
 	public abstract Long save(DnsRecord obj);
 
@@ -46,6 +46,6 @@ public interface DnsRecordService {
 	 */
 	List<DnsRecord> findByDomainId(Long id);
 
-	void createRecord(Domain obj);
+	void createRecord(Subdomain obj);
 
 }

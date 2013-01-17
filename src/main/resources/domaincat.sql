@@ -21,20 +21,39 @@ DROP TABLE IF EXISTS `domain`;
 CREATE TABLE `domain` (
   `id` int(11) NOT NULL auto_increment,
   `name` varchar(50) NOT NULL COMMENT '域名',
-  `fullname` varchar(80) NOT NULL COMMENT '全域名',
   `password` varchar(44) NOT NULL COMMENT '密码',
   `salt` varchar(16) NOT NULL COMMENT '密码盐',
+  `email` varchar(100) default NULL COMMENT '邮箱',
   `status` tinyint(4) NOT NULL default '1' COMMENT '状态',
-  `pid` int(11) default NULL COMMENT '域名id，有了说明是二级域名',
-  `regist_time` timestamp NOT NULL default CURRENT_TIMESTAMP COMMENT '注册时间',
+  `dnspod_domain_id` varchar(11) NOT NULL default '' COMMENT 'dnspod中的域名id',
+  `regist_time` timestamp NULL default CURRENT_TIMESTAMP COMMENT '注册时间',
   `regist_ip` varchar(32) default NULL COMMENT '注册ip',
-  `last_time` timestamp NULL COMMENT '最后登录时间',
-  `last_ip` varchar(32) default NULL COMMENT '最后登录ip',
+  `last_time` timestamp NULL default NULL COMMENT '最后修改时间',
+  `last_ip` varchar(32) default NULL COMMENT '最后修改ip',
   `description` text COMMENT '说明',
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-insert into `domain`(`id`,`name`,`fullname`,`password`,`salt`) values(2723144,'runcat.org','runcat.org','K50paAp6XRU6xMt5VmmQvEVfe33hfgxHDRx1gYYxNTU=','0VSG15LOUN4=');
+insert into `domain`(`name`,`password`,`salt`,`dnspod_domain_id`) values('runcat.org','K50paAp6XRU6xMt5VmmQvEVfe33hfgxHDRx1gYYxNTU=','0VSG15LOUN4=','2723144');
+
+DROP TABLE IF EXISTS `subdomain`;
+
+CREATE TABLE `subdomain` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(50) NOT NULL COMMENT '域名',
+  `fullname` varchar(80) NOT NULL COMMENT '全域名',
+  `password` varchar(44) NOT NULL COMMENT '密码',
+  `salt` varchar(16) NOT NULL default '' COMMENT '密码盐',
+  `email` varchar(100) default NULL COMMENT '邮箱',
+  `status` tinyint(4) NOT NULL default '1' COMMENT '状态',
+  `dnspod_domain_id` int(11) default NULL COMMENT 'dnspod域名id',
+  `regist_time` timestamp NOT NULL default CURRENT_TIMESTAMP COMMENT '注册时间',
+  `regist_ip` varchar(32) default NULL COMMENT '注册ip',
+  `last_time` timestamp NULL default NULL COMMENT '最后修改时间',
+  `last_ip` varchar(32) default NULL COMMENT '最后修改ip',
+  `description` text COMMENT '说明',
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `dnsrecord`;
 
@@ -45,9 +64,10 @@ CREATE TABLE `dnsrecord` (
   `record_line` tinyint(4) NOT NULL COMMENT '线路类型',
   `value` varchar(50) NOT NULL COMMENT '记录值',
   `mx` varchar(10) NOT NULL default '-' COMMENT 'mx优先级',
-  `ttl` int(11) NOT NULL default 600 COMMENT 'TTL',
-  `stopable` tinyint(1) NOT NULL default 0 COMMENT '暂停使用',
-  `domain_id` int(11) NOT NULL COMMENT '域名id',
-  `owner_id` int(11) NOT NULL COMMENT '用户id',
+  `ttl` int(11) NOT NULL default '600' COMMENT 'TTL',
+  `stopable` tinyint(1) NOT NULL default '0' COMMENT '暂停使用',
+  `subdomain_id` int(11) NOT NULL COMMENT '二级域名id',
+  `dnspod_record_id` varchar(11) NOT NULL COMMENT 'dnspod记录id',
+  `dnspod_domain_id` varchar(11) NOT NULL COMMENT 'dnspod域名id',
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

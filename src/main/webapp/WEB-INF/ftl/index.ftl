@@ -162,7 +162,7 @@
     </div>
 </div>
 <#include "footer.ftl">
-<script type="text/javascript" src="js/carousel.js"></script>
+<script type="text/javascript" src="${contextPath}/js/carousel.js"></script>
 <script type="text/javascript">
 $(function(){
 	$("#btn_check").click(function() {
@@ -170,7 +170,8 @@ $(function(){
 		var s_domain = $("#domain").val();
 		var s_domain_text = $("#domain").find("option:selected").text();
 		$.ajax({
-			url:"${contextPath}/domain/"+s_domain+"/valid/"+s_name+".json"
+			url:"${contextPath}/subdomain/valid.json"
+			,data:{"domainId":s_domain,"name":s_name}
 			,dataType:"json"
 			,beforeSend:function(XHR) {
 				$("#btn_check").attr("disabled", true);
@@ -197,10 +198,10 @@ $(function(){
 		var s_domain = $("#domain").val();
 		var s_password = $("#password").val();
 		$.ajax({
-			url:"${contextPath}/domain.json"
+			url:"${contextPath}/subdomain.json"
 			,type:"post"
 			,dataType:"json"
-			,data:{"name":s_name,"fullname":s_fullname,"pid":s_domain,"plainPassword":s_password}
+			,data:{"name":s_name,"fullname":s_fullname,"dnsDomainId":s_domain,"password":s_password}
 			,beforeSend:function(XHR) {
 				$("#btn_sub").attr("disabled", true);
 			}

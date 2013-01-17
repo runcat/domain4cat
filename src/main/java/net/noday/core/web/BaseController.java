@@ -23,7 +23,7 @@ import net.noday.core.model.App;
 import net.noday.core.security.IncorrectCaptchaException;
 import net.noday.core.security.ShiroDbRealm;
 import net.noday.core.security.ShiroDbRealm.ShiroUser;
-import net.noday.d4c.dao.DomainDao;
+import net.noday.d4c.dao.SubdomainDao;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -51,7 +51,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public abstract class BaseController {
 
-	@Autowired protected DomainDao securityDao;
+	@Autowired protected SubdomainDao securityDao;
 	@Resource protected Map<String, Object> appCache;
 	@Autowired protected ShiroDbRealm realm;
 

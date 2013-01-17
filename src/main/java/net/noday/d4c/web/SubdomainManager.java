@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import net.noday.core.web.GeneralController;
-import net.noday.d4c.model.Domain;
-import net.noday.d4c.service.DnsRecordService;
-import net.noday.d4c.service.DomainService;
+import net.noday.d4c.model.Subdomain;
+import net.noday.d4c.service.DnsrecordService;
+import net.noday.d4c.service.SubdomainService;
 
 /**
  * @author Administrator
@@ -23,10 +23,10 @@ import net.noday.d4c.service.DomainService;
  */
 @Controller
 @RequestMapping("/admin/domain")
-public class DomainManager extends GeneralController<Domain, Long> {
+public class SubdomainManager extends GeneralController<Subdomain, Long> {
 
-	@Autowired private DomainService domainService;
-	@Autowired private DnsRecordService recordService;
+	@Autowired private SubdomainService domainService;
+	@Autowired private DnsrecordService recordService;
 	
 	@Override
 	public String create() {
@@ -34,7 +34,7 @@ public class DomainManager extends GeneralController<Domain, Long> {
 	}
 
 	@Override
-	public String save(@Valid Domain obj, BindingResult result, Model m) {
+	public String save(@Valid Subdomain obj, BindingResult result, Model m) {
 		if (result.hasErrors()) {
 			m.addAttribute(result.getFieldErrors());
 		} else {
@@ -58,7 +58,7 @@ public class DomainManager extends GeneralController<Domain, Long> {
 	}
 
 	@Override
-	public String modify(@PathVariable("id") Long id, @Valid Domain obj, BindingResult result, Model m) {
+	public String modify(@PathVariable("id") Long id, @Valid Subdomain obj, BindingResult result, Model m) {
 		domainService.update(obj);
 		responseData(m, id);
 		return "admin/article/add-success";

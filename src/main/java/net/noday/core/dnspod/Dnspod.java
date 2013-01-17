@@ -53,8 +53,8 @@ public class Dnspod {
 	
 	private static Map<String, String> data = new HashMap<String, String>();
 	static {
-		data.put(LOGIN_EMAIL, "---2000@gmail.com");
-		data.put(LOGIN_PASSWORD, "---");
+		data.put(LOGIN_EMAIL, "yaoniming2000@gmail.com");
+		data.put(LOGIN_PASSWORD, "yaoniming");
 		data.put(FORMAT, "json");
 		data.put(LANG, "cn");
 		data.put(ERROR_ON_EMPTY, "no");
@@ -115,7 +115,7 @@ public class Dnspod {
 		try {
 			doc = Jsoup.connect(urlRecordCreate)
 					.data(data)
-					.data("domain_id", obj.getDomainId()+"")
+					.data("domain_id", obj.getDnspodDomainId())
 					.data("sub_domain", obj.getSubDomain())
 					.data("record_type", obj.getRecordTypeE().name())
 					.data("record_line", "默认")
@@ -151,7 +151,7 @@ public class Dnspod {
 		try {
 			Document doc = Jsoup.connect(urlRecordModify)
 					.data(data)
-					.data("domain_id", obj.getDomainId()+"")
+					.data("domain_id", obj.getDnspodDomainId())
 					.data("record_id", obj.getId()+"")
 					.data("sub_domain", obj.getSubDomain())
 					.data("record_type", obj.getRecordTypeE().name())

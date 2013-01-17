@@ -17,7 +17,6 @@ package net.noday.d4c.dao;
 
 import java.util.List;
 
-import net.noday.d4c.model.Domain;
 import net.noday.d4c.model.Subdomain;
 
 import org.apache.commons.lang3.StringUtils;
@@ -42,7 +41,7 @@ import org.springframework.stereotype.Repository;
  * @since 
  */
 @Repository
-public class DomainDao {
+public class SubdomainDao {
 
 	@Autowired private JdbcTemplate jdbc;
 	@Autowired private NamedParameterJdbcTemplate namedJdbc;
@@ -64,9 +63,14 @@ public class DomainDao {
 		return jdbc.queryForObject(sql, new BeanPropertyRowMapper<Subdomain>(Subdomain.class), id);
 	}
 	
-	public List<Domain> findDomain() {
+	public boolean has(Long domainId, String name) {
+		String sql = "select count(*) from subdomain where name=? and domain_id=?";
+		return jdbc.queryForInt(sql, name, domainId) > 0;
+	}
+	
+	public List<Subdomain> findDomain() {
 		String sql = "select * from domain where status=1";
-		return jdbc.query(sql, new BeanPropertyRowMapper<Domain>(Domain.class));
+		return jdbc.query(sql, new BeanPropertyRowMapper<Subdomain>(Subdomain.class));
 	}
 	
 	public Subdomain findUserByDomain(String domain) {

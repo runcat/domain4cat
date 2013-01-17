@@ -16,7 +16,7 @@
 package net.noday.d4c.web;
 
 import net.noday.core.web.BaseController;
-import net.noday.d4c.service.DomainService;
+import net.noday.d4c.service.impl.DomainServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,7 +34,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class MainController extends BaseController {
 
-	@Autowired private DomainService domainService;
+	@Autowired private DomainServiceImpl domainService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Model m) {

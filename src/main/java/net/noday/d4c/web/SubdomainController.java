@@ -9,39 +9,39 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import net.noday.core.web.BaseController;
-import net.noday.d4c.model.Domain;
-import net.noday.d4c.service.DomainService;
+import net.noday.d4c.model.Subdomain;
+import net.noday.d4c.service.SubdomainService;
 
 /**
  * @author Administrator
  *
  */
 @Controller
-@RequestMapping("/domain")
-public class DomainController extends BaseController {
+@RequestMapping("/subdomain")
+public class SubdomainController extends BaseController {
 
-	@Autowired private DomainService domainService;
+	@Autowired private SubdomainService subdomainService;
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public String save(@Valid Domain obj, BindingResult result, Model m) {
+	public String save(@Valid Subdomain obj, BindingResult result, Model m) {
 		if (result.hasErrors()) {
 			m.addAttribute(result.getFieldErrors());
 		} else {
-			Long id = domainService.save(obj);
+			Long id = subdomainService.createSubdomain(obj);
 			m.addAttribute("domain", null);
 			responseData(m, id);
 		}
-		return "admin/article/add-success";
+		return null;
 	}
 	
-	@RequestMapping("{id}/valid/{subdomain}")
-	public String checkSubdomain(@PathVariable("id") Long id, @PathVariable("subdomain") String subdomain, Model m) {
-		responseResult(m, domainService.checkSubdomain(id, subdomain));
+	@RequestMapping("/valid")
+	public String checkSubdomain(@RequestParam("domainId") Long domainId, @RequestParam("name") String name, Model m) {
+		responseResult(m, subdomainService.checkSubdomain(domainId, name));
 		return "";
 	}
 
@@ -52,8 +52,14 @@ public class DomainController extends BaseController {
 	}
 	
 	@RequestMapping(value = "share", method = RequestMethod.POST)
-	public String share(@Valid Domain obj, BindingResult result, Model m) {
-		
+	public String share(@Valid Subdomain obj, BindingResult result, Model m) {
+		if (result.hasErrors()) {
+			m.addAttribute(result.getFieldErrors());
+		} else {
+			Long id = subdomainService.save(obj);
+			m.addAttribute("domain", null);
+			responseData(m, id);
+		}
 		return null;
 	}
 }
