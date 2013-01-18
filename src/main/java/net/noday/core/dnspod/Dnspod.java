@@ -152,7 +152,7 @@ public class Dnspod {
 			Document doc = Jsoup.connect(urlRecordModify)
 					.data(data)
 					.data("domain_id", obj.getDnspodDomainId())
-					.data("record_id", obj.getId()+"")
+					.data("record_id", obj.getDnspodRecordId())
 					.data("sub_domain", obj.getSubDomain())
 					.data("record_type", obj.getRecordTypeE().name())
 					.data("record_line", "默认")

@@ -47,7 +47,7 @@ public class SubdomainDao {
 	@Autowired private NamedParameterJdbcTemplate namedJdbc;
 	
 	public long save(Subdomain obj) {
-        String sql = "insert into subdomain(name,fullname,password,salt,domain_id) values(:name,:fullname,:password,:salt,:domainId)";
+        String sql = "insert into subdomain(name,fullname,password,salt,dnspod_domain_id) values(:name,:fullname,:password,:salt,:dnspodDomainId)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         namedJdbc.update(sql, new BeanPropertySqlParameterSource(obj), keyHolder);
         return keyHolder.getKey().longValue();
@@ -63,9 +63,9 @@ public class SubdomainDao {
 		return jdbc.queryForObject(sql, new BeanPropertyRowMapper<Subdomain>(Subdomain.class), id);
 	}
 	
-	public boolean has(Long domainId, String name) {
-		String sql = "select count(*) from subdomain where name=? and domain_id=?";
-		return jdbc.queryForInt(sql, name, domainId) > 0;
+	public boolean has(String dnspodDomainId, String name) {
+		String sql = "select count(*) from subdomain where name=? and dnspod_domain_id=?";
+		return jdbc.queryForInt(sql, name, dnspodDomainId) > 0;
 	}
 	
 	public List<Subdomain> findDomain() {
@@ -73,9 +73,9 @@ public class SubdomainDao {
 		return jdbc.query(sql, new BeanPropertyRowMapper<Subdomain>(Subdomain.class));
 	}
 	
-	public Subdomain findUserByDomain(String domain) {
-		String sql = "select * from domain d where d.fullname=? limit 1";
-		Subdomain u = jdbc.queryForObject(sql, new BeanPropertyRowMapper<Subdomain>(Subdomain.class), domain);
+	public Subdomain findUserBySubdomain(String subdomain) {
+		String sql = "select * from subdomain d where d.fullname=? limit 1";
+		Subdomain u = jdbc.queryForObject(sql, new BeanPropertyRowMapper<Subdomain>(Subdomain.class), subdomain);
 		return u;
 	}
 	

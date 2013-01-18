@@ -28,8 +28,8 @@ public class DnsrecordDao {
 	@Autowired private NamedParameterJdbcTemplate namedjdbc;
 
 	public long save(DnsRecord obj) {
-        String sql = "insert into dnsrecord(id,sub_domain,record_type,record_line,value,mx,ttl,domain_id,owner_id)" +
-        		" values(:id,:subDomain,:recordType,:recordLine,:value,:mx,:ttl,:domainId,:ownerId)";
+        String sql = "insert into dnsrecord(id,sub_domain,record_type,record_line,value,mx,ttl,subdomain_id,dnspod_record_id,dnspod_domain_id)" +
+        		" values(:id,:subDomain,:recordType,:recordLine,:value,:mx,:ttl,:subdomainId,:dnspodRecordId,:dnspodDomainId)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         namedjdbc.update(sql, new BeanPropertySqlParameterSource(obj), keyHolder);
         return keyHolder.getKey().longValue();
@@ -51,9 +51,9 @@ public class DnsrecordDao {
 		return r;
 	}
 	
-	public List<DnsRecord> findByOwnerId(Long oid) {
-		String sql = "select * from dnsrecord a where a.owner_id=?";
-		return jdbc.query(sql, new BeanPropertyRowMapper<DnsRecord>(DnsRecord.class), oid);
+	public List<DnsRecord> findBySubdomainId(Long subdomainId) {
+		String sql = "select * from dnsrecord a where a.subdomain_id=?";
+		return jdbc.query(sql, new BeanPropertyRowMapper<DnsRecord>(DnsRecord.class), subdomainId);
 	}
 	
 	public List<DnsRecord> findPage(DnsRecord condition, int pIndex, int pSize) {

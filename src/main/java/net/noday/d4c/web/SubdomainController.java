@@ -33,15 +33,15 @@ public class SubdomainController extends BaseController {
 			m.addAttribute(result.getFieldErrors());
 		} else {
 			Long id = subdomainService.createSubdomain(obj);
-			m.addAttribute("domain", null);
+			m.addAttribute("subdomain", null);
 			responseData(m, id);
 		}
 		return null;
 	}
 	
 	@RequestMapping("/valid")
-	public String checkSubdomain(@RequestParam("domainId") Long domainId, @RequestParam("name") String name, Model m) {
-		responseResult(m, subdomainService.checkSubdomain(domainId, name));
+	public String checkSubdomain(@RequestParam("dnspodDomainId") String dnspodDomainId, @RequestParam("name") String name, Model m) {
+		responseResult(m, subdomainService.checkSubdomain(dnspodDomainId, name));
 		return "";
 	}
 

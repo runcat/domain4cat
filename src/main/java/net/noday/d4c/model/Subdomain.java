@@ -27,7 +27,7 @@ public class Subdomain implements Registable, Loginable<Long>, Serializable {
 	private String salt;
 	private String email;
 	private int status;
-	private String dnsDomainId;
+	private String dnspodDomainId;
 	private Date registTime;
 	private String registIp;
 	private Date lastTime;
@@ -77,11 +77,11 @@ public class Subdomain implements Registable, Loginable<Long>, Serializable {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	public String getDnsDomainId() {
-		return dnsDomainId;
+	public String getDnspodDomainId() {
+		return dnspodDomainId;
 	}
-	public void setDnsDomainId(String dnsDomainId) {
-		this.dnsDomainId = dnsDomainId;
+	public void setDnspodDomainId(String dnspodDomainId) {
+		this.dnspodDomainId = dnspodDomainId;
 	}
 	public Date getRegistTime() {
 		return registTime;

@@ -97,7 +97,8 @@ public class ShiroDbRealm extends AuthorizingRealm {
 			setCredentialsMatcher(hashedCredentialsMatcher);
 			UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
 			Loginable<Long> user = service.findUserByLoginName(token.getUsername());
-			return new SimpleAuthenticationInfo(new ShiroUser(user.getId(), user.getLoginName(), user.getName()), user.getPassword(), ByteSource.Util.bytes(Base64.decode(user.getSalt())), getName());
+			return new SimpleAuthenticationInfo(new ShiroUser(user.getId(), user.getLoginName(), user.getName()),
+					user.getPassword(), ByteSource.Util.bytes(Base64.decode(user.getSalt())), getName());
 		}
 		return null;
 	}

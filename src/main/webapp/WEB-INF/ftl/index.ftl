@@ -85,7 +85,7 @@
 											<div class="input-control select span3">
 										        <select id="domain">
 										        	<#list data as row>
-										            <option value="${row.id}">${row.name}</option>
+										            <option value="${row.dnspodDomainId}">${row.name}</option>
 										        	</#list>
 										        </select>
 										    </div>
@@ -171,7 +171,7 @@ $(function(){
 		var s_domain_text = $("#domain").find("option:selected").text();
 		$.ajax({
 			url:"${contextPath}/subdomain/valid.json"
-			,data:{"domainId":s_domain,"name":s_name}
+			,data:{"dnspodDomainId":s_domain,"name":s_name}
 			,dataType:"json"
 			,beforeSend:function(XHR) {
 				$("#btn_check").attr("disabled", true);
@@ -201,7 +201,7 @@ $(function(){
 			url:"${contextPath}/subdomain.json"
 			,type:"post"
 			,dataType:"json"
-			,data:{"name":s_name,"fullname":s_fullname,"dnsDomainId":s_domain,"password":s_password}
+			,data:{"name":s_name,"fullname":s_fullname,"dnspodDomainId":s_domain,"password":s_password}
 			,beforeSend:function(XHR) {
 				$("#btn_sub").attr("disabled", true);
 			}

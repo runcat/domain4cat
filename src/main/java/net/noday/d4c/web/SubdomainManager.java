@@ -22,7 +22,7 @@ import net.noday.d4c.service.SubdomainService;
  *
  */
 @Controller
-@RequestMapping("/admin/domain")
+@RequestMapping("/admin/subdomain")
 public class SubdomainManager extends GeneralController<Subdomain, Long> {
 
 	@Autowired private SubdomainService domainService;
@@ -66,8 +66,7 @@ public class SubdomainManager extends GeneralController<Subdomain, Long> {
 
 	@Override
 	public String list(Model m) {
-		responseData(m, recordService.findByDomainId(getUser().getId()));
-//		m.addAttribute("type", FreemarkerUtils.enum2list(RecordType.class.getName()));
+		responseData(m, recordService.findBySubdomainId(getUser().getId()));
 		return "main";
 	}
 	@Override

@@ -86,8 +86,8 @@ public class SubdomainServiceImpl implements SubdomainService {
 	 * @see net.noday.d4c.service.impl.DomainService#checkSubdomain(java.lang.String)
 	 */
 	@Override
-	public boolean checkSubdomain(Long domainId, String name) {
-		return dao.has(domainId, name);
+	public boolean checkSubdomain(String dnspodDomainId, String name) {
+		return dao.has(dnspodDomainId, name);
 	}
 	
 	/* (non-Javadoc)

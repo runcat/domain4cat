@@ -24,7 +24,7 @@ public class LoginService implements SecurityService<Loginable<Long>> {
 	
 	@Override
 	public Loginable<Long> findUserByLoginName(String loginName) {
-		Subdomain u = dao.findUserByDomain(loginName);
+		Subdomain u = dao.findUserBySubdomain(loginName);
 		return u;
 	}
 

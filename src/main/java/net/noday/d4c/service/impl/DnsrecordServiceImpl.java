@@ -53,7 +53,7 @@ public class DnsrecordServiceImpl implements DnsrecordService {
 	@Override
 	public void createRecord(Subdomain obj) {
 		DnsRecord r = new DnsRecord();
-		r.setDnspodDomainId(obj.getDnsDomainId());
+		r.setDnspodDomainId(obj.getDnspodDomainId());
 		r.setSubdomainId(obj.getId());
 		r.setSubDomain(obj.getName());
 		r.setRecordType(RecordType.CNAME);
@@ -108,7 +108,7 @@ public class DnsrecordServiceImpl implements DnsrecordService {
 	}
 	
 	@Override
-	public List<DnsRecord> findByDomainId(Long id) {
-		return dao.findByOwnerId(id);
+	public List<DnsRecord> findBySubdomainId(Long id) {
+		return dao.findBySubdomainId(id);
 	}
 }

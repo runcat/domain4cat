@@ -40,12 +40,8 @@ public interface DnsrecordService {
 
 	public abstract Page<DnsRecord> findPage(int index, DnsRecord condition);
 
-	/**
-	 * @param id
-	 * @return
-	 */
-	List<DnsRecord> findByDomainId(Long id);
-
 	void createRecord(Subdomain obj);
+
+	List<DnsRecord> findBySubdomainId(Long id);
 
 }
