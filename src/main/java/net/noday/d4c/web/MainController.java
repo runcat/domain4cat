@@ -47,4 +47,15 @@ public class MainController extends BaseController {
 		
 		return "login";
 	}
+	
+	@RequestMapping("admin")
+	public String switchPage() {
+		if (getSubject().hasRole("domain")) {
+			return "redirect:/admin/domain";
+		} else if (getSubject().hasRole("subdomain")) {
+			return "redirect:/admin/subdomain";
+		}
+		
+		return "redirect:/";
+	}
 }

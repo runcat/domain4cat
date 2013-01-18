@@ -123,4 +123,8 @@ public class Domain implements Registable, Loginable<Long>, Serializable {
 	public String getLoginName() {
 		return name;
 	}
+	@Override
+	public String getRole() {
+		return "domain";
+	}
 }

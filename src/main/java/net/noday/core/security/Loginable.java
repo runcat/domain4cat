@@ -14,4 +14,5 @@ public interface Loginable<T> {
 	String getName();
 	String getPassword();
 	String getSalt();
+	String getRole();
 }

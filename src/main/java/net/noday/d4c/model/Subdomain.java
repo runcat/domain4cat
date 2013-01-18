@@ -130,4 +130,8 @@ public class Subdomain implements Registable, Loginable<Long>, Serializable {
 	public String getLoginName() {
 		return fullname;
 	}
+	@Override
+	public String getRole() {
+		return "subdomain";
+	}
 }
