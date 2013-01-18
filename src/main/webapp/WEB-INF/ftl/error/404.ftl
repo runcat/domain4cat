@@ -8,16 +8,17 @@
 </@head>
 </head>
 <body>
-	<div class="container body-container">
-		<#include "error/header.ftl">
-		<div class="row">
-			<div class="span12">
-				<h1>404 notfound</h1>
-				<p>找不到你访问的资源</p>
-				<p>${msg}</p>
-			</div>
-		</div>
-		<#include "footer.ftl">
-	</div>
+<#include "error/header.ftl">
+<div class="page" id="page-index">
+    <div class="page-region">
+        <div class="page-region-content">
+            <div class="grid">
+            <h3>找不到</h3>
+				<p>${message}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<#include "footer.ftl">
 </body>
 </html>

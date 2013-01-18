@@ -56,7 +56,7 @@
             </li>
 				-->
             <li><a href="${contextPath}/login">管理我的域名</a></li>
-            <li><a href="${contextPath}/share">我要分享域名</a></li>
+            <li><a href="${contextPath}/domain/share">我要分享域名</a></li>
         </ul>
 
     </div>

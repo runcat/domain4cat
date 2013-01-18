@@ -8,15 +8,17 @@
 </@head>
 </head>
 <body>
-	<div class="container body-container">
-		<#include "error/header.ftl">
-		<div class="row">
-			<div class="span12">
-				<h1>出错了</h1>
-				<p>${msg}</p>
-			</div>
-		</div>
-		<#include "footer.ftl">
-	</div>
+<#include "error/header.ftl">
+<div class="page" id="page-index">
+    <div class="page-region">
+        <div class="page-region-content">
+            <div class="grid">
+            <h3>出错了</h3>
+				<p>${message}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<#include "footer.ftl">
 </body>
 </html>

@@ -18,7 +18,6 @@ package net.noday.d4c.dao;
 import java.util.List;
 
 import net.noday.d4c.model.Domain;
-import net.noday.d4c.model.Subdomain;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +34,10 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 /**
- * cat SecurityDao
+ * cat DomainDao
  *
  * @author <a href="http://www.noday.net">Noday</a>
- * @version , 2012-10-24
+ * @version , 2012-1-18
  * @since 
  */
 @Repository
@@ -47,21 +46,16 @@ public class DomainDao {
 	@Autowired private JdbcTemplate jdbc;
 	@Autowired private NamedParameterJdbcTemplate namedJdbc;
 	
-	public long save(Subdomain obj) {
-        String sql = "insert into subdomain(name,fullname,password,salt,domain_id) values(:name,:fullname,:password,:salt,:domainId)";
+	public long save(Domain obj) {
+        String sql = "insert into domain(name,password,salt,dnspod_domain_id) values(:name,:password,:salt,:dnspodDomainId)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         namedJdbc.update(sql, new BeanPropertySqlParameterSource(obj), keyHolder);
         return keyHolder.getKey().longValue();
 	}
 	
-	public void saveWithId(Subdomain obj) {
-		String sql = "insert into domain(id,name,fullname,password,salt,pid) values(:id,:name,:fullname,:password,:salt,:pid)";
-		namedJdbc.update(sql, new BeanPropertySqlParameterSource(obj));
-	}
-	
-	public Subdomain get(Long id) {
+	public Domain get(Long id) {
 		String sql = "select * from domain where id=?";
-		return jdbc.queryForObject(sql, new BeanPropertyRowMapper<Subdomain>(Subdomain.class), id);
+		return jdbc.queryForObject(sql, new BeanPropertyRowMapper<Domain>(Domain.class), id);
 	}
 	
 	public List<Domain> findDomain() {
@@ -69,13 +63,13 @@ public class DomainDao {
 		return jdbc.query(sql, new BeanPropertyRowMapper<Domain>(Domain.class));
 	}
 	
-	public Subdomain findUserByDomain(String domain) {
+	public Domain findUserByDomain(String domain) {
 		String sql = "select * from domain d where d.fullname=? limit 1";
-		Subdomain u = jdbc.queryForObject(sql, new BeanPropertyRowMapper<Subdomain>(Subdomain.class), domain);
+		Domain u = jdbc.queryForObject(sql, new BeanPropertyRowMapper<Domain>(Domain.class), domain);
 		return u;
 	}
 	
-	public List<Subdomain> findPage(Subdomain condition, int pIndex, int pSize) {
+	public List<Domain> findPage(Domain condition, int pIndex, int pSize) {
 		StringBuffer sql = new StringBuffer("select * from domain d where 1=1");
 		SqlParameterSource ps = null;
 		if (condition != null) {
@@ -85,11 +79,11 @@ public class DomainDao {
 		sql.append(" order by d.regist_time desc")
 			.append(" limit ").append((pIndex - 1) * pSize)
 			.append(",").append(pSize);
-		List<Subdomain> list = namedJdbc.query(sql.toString(), ps, new BeanPropertyRowMapper<Subdomain>(Subdomain.class));
+		List<Domain> list = namedJdbc.query(sql.toString(), ps, new BeanPropertyRowMapper<Domain>(Domain.class));
 		return list;
 	}
 	
-	public int findCount(Subdomain condition) {
+	public int findCount(Domain condition) {
 		StringBuffer sql = new StringBuffer("select count(d.id) from domain d where 1=1");
 		SqlParameterSource ps = null;
 		if (condition != null) {
@@ -99,7 +93,7 @@ public class DomainDao {
 		return namedJdbc.queryForInt(sql.toString(), ps);
 	}
 	
-	private String toConditionSql(Subdomain d) {
+	private String toConditionSql(Domain d) {
 		StringBuffer s = new StringBuffer();
 		if (StringUtils.isNotBlank(d.getEmail())) {
 			s.append(" and u.email like %:email%");
@@ -111,8 +105,8 @@ public class DomainDao {
 	}
 	
 	///---------------------
-	protected Subdomain safeQueryForObject(String sql, RowMapper<Subdomain> rowMapper, Object... args) {
-		List<Subdomain> results = jdbc.query(sql, args, new RowMapperResultSetExtractor<Subdomain>(rowMapper, 1));
+	protected Domain safeQueryForObject(String sql, RowMapper<Domain> rowMapper, Object... args) {
+		List<Domain> results = jdbc.query(sql, args, new RowMapperResultSetExtractor<Domain>(rowMapper, 1));
 		int size = (results != null ? results.size() : 0);
 		if (results.size() > 1) {
 			throw new IncorrectResultSizeDataAccessException(1, size);

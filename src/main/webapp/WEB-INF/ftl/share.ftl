@@ -22,14 +22,14 @@
 								<form action="" method="post">
 									<div class="row content_toggle">
 										<div class="input-control text span3">
-											<input name="name" type="text" />
+											<input name="name" type="text" tabindex="1" />
 											<button class="helper"></button>
 										</div>
 										<div class="input-control password span3">
-											<input name="password" type="password" />
+											<input name="password" type="password" tabindex="2" />
 											<button class="helper"></button>
 										</div>
-										<input type="submit" value="提交" />
+										<input type="submit" value="提交" tabindex="3" />
 									</div>
 									<div class="row">
 										<span class="span3">${message}</span>

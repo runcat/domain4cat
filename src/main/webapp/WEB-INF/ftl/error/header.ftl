@@ -1,36 +1,64 @@
-    <header class="jumbotron subhead" id="overview">
-      <div class="row">
-        <div class="span6">
-          <h1>${cfg.webTitle}</h1>
-          <p>${cfg.subTitle}</p>
-        </div>
-      </div>
-      <div class="navbar" id="main-navbar">
-        <div class="navbar-inner">
-          <div class="container">
-            <a class="brand" href="#"></a>
-            <div class="nav-collapse">
-              <ul class="nav">
-                <li id="home"><a href="${contextPath}/"><i class="icon-home"></i>Home</a></li>
-                <li id="tags"><a href="${contextPath}/tags">标签墙</a></li>
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">跟踪我 <b class="caret"></b></a>
-                  <ul class="dropdown-menu">
-	                <li><a href="http://www.noday.net" target="_blank">我的博客</a></li>
-	                <li><a href="http://symphony.b3log.org" target="_blank">B3log社区</a></li>
-                    <li class="nav-header">微博</li>
-                    <li><a href="#">腾讯微博</a></li>
-                    <li><a href="#">新浪微博</a></li>
+<div class="page">
+<div class="nav-bar">
+    <div class="nav-bar-inner padding10">
+        <span class="pull-menu"></span>
+
+        <a href="${cfg.hostUrl}${contextPath}"><span class="element brand">
+            <img class="place-left" src="${contextPath}/img/logo.png" style="height: 20px">
+            ${cfg.webTitle} <small>域名共享</small>
+        </span></a>
+
+        <div class="divider"></div>
+
+        <ul class="menu">
+            <li><a href="${cfg.hostUrl}${contextPath}">Home</a></li>
+            <#--
+            <li data-role="dropdown">
+                <a href="#">Scaffolding</a>
+                <ul class="dropdown-menu" style="overflow: hidden; ">
+                    <li><a href="global.php">Global styles</a></li>
+                    <li><a href="layout.php">Layouts and templates</a></li>
+                    <li><a href="grid.php">Grid system</a></li>
                     <li class="divider"></li>
-                    <li class="nav-header">空间</li>
-                    <li><a href="#">开源中国</a></li>
-                    <li><a href="#">百度</a></li>
-                    <li class="nav-header">我都不去了</li>
-                  </ul>
-                </li>
-              </ul>
-            </div><!-- /.nav-collapse -->
-          </div>
-        </div><!-- /navbar-inner -->
-      </div>
-    </header>
+                    <li><a href="responsive.php">Responsive design</a>
+                    </li>
+                </ul>
+            </li>
+            <li data-role="dropdown"><a href="#">Base CSS</a>
+                <ul class="dropdown-menu" style="overflow: hidden; ">
+                    <li><a href="typography.php">Typography</a></li>
+                    <li><a href="tables.php">Tables</a></li>
+                    <li><a href="forms.php">Forms</a></li>
+                    <li><a href="buttons.php">Buttons</a></li>
+                    <li><a href="images.php">Images</a></li>
+                    <li class="divider"></li>
+                    <li><a href="icons.php">Icons</a></li>
+                </ul>
+            </li>
+            <li data-role="dropdown"><a href="#">Components</a>
+                <ul class="dropdown-menu" style="overflow: hidden; ">
+                    <li><a href="tiles.php">Tiles</a></li>
+                    <li><a href="menus.php">Menu and Navigation</a></li>
+                    <li><a href="sidebar.php">Sidebar</a></li>
+                    <li><a href="pagecontrol.php">Page control</a></li>
+                    <li><a href="accordion.php">Accordion</a></li>
+                    <li><a href="buttons-set.php">Buttons set</a></li>
+                    <li><a href="rating.php">Rating</a></li>
+                    <li><a href="progress.php">Progress bars</a></li>
+                    <li><a href="carousel.php">Carousel</a></li>
+                    <li><a href="listview.php">List view</a></li>
+                    <li><a href="slider.php">Slider</a></li>
+                    <li class="divider"></li>
+                    <li><a href="notices.php">Notices and Replies</a></li>
+                    <li class="divider"></li>
+                    <li><a href="cards.php">Bonus - Deck of Cards</a></li>
+                </ul>
+            </li>
+				-->
+            <li><a href="${contextPath}/login">管理我的域名</a></li>
+            <li><a href="${contextPath}/domain/share">我要分享域名</a></li>
+        </ul>
+
+    </div>
+</div>
+</div>

@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.noday.d4c.model.DnsRecord;
+import net.noday.d4c.model.Domain;
 
 import org.apache.commons.lang.StringUtils;
 import org.jsoup.Jsoup;
@@ -71,13 +72,23 @@ public class Dnspod {
 				.post();
 		return doc.body().text();
 	}
-	public static String domainCreate(String domain) throws IOException {
-		Document doc = Jsoup.connect(url_domainCreate)
-				.data(data)
-				.data("domain", domain)
-				.userAgent(user_agent)
-				.post();
-		return doc.body().text();
+	public static String domainCreate(Domain obj) {
+		Document doc;
+		try {
+			doc = Jsoup.connect(url_domainCreate)
+					.data(data)
+					.data("domain", obj.getName())
+					.userAgent(user_agent)
+					.post();
+			JSONObject o = JSON.parseObject(doc.body().text());
+			String code = o.getJSONObject("status").getString("code");
+			if (StringUtils.equals(code, "1")) {
+				return o.getJSONObject("domain").getString("id");
+			}
+			throw new DnspodException(o.getJSONObject("status").getString("message"));
+		} catch (IOException e) {
+			throw new DnspodException(e.getMessage());
+		}
 	}
 	
 	public static final String urlDomainList = "https://dnsapi.cn/Domain.List";

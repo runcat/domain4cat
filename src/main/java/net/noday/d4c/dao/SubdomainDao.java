@@ -34,10 +34,10 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 /**
- * cat SecurityDao
+ * cat SubdomainDao
  *
  * @author <a href="http://www.noday.net">Noday</a>
- * @version , 2012-10-24
+ * @version , 2012-1-5
  * @since 
  */
 @Repository

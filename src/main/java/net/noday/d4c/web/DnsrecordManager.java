@@ -29,7 +29,7 @@ import net.noday.d4c.model.DnsRecord;
 import net.noday.d4c.service.DnsrecordService;
 
 /**
- * domain4cat DnsRecordController
+ * domain4cat DnsrecordManager
  *
  * @author <a href="http://www.noday.net">Noday</a>
  * @version , 2013-1-9

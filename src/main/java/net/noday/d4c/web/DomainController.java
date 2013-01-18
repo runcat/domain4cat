@@ -23,40 +23,38 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import net.noday.core.web.BaseController;
-import net.noday.d4c.model.Subdomain;
-import net.noday.d4c.service.SubdomainService;
+import net.noday.d4c.model.Domain;
+import net.noday.d4c.service.impl.DomainServiceImpl;
 
 /**
- * domain4cat SubdomainController
+ * domain4cat DomainController
  *
  * @author <a href="http://www.noday.net">Noday</a>
  * @version , 2013-1-18
  * @since 
  */
-@Controller
-@RequestMapping("/subdomain")
-public class SubdomainController extends BaseController {
+@Controller @RequestMapping("domain")
+public class DomainController extends BaseController {
 
-	@Autowired private SubdomainService subdomainService;
+	@Autowired private DomainServiceImpl domainService;
+
+	@RequestMapping(value = "share", method = RequestMethod.GET)
+	public String share() {
+		
+		return "share";
+	}
 	
-	@RequestMapping(method = RequestMethod.POST)
-	public String save(@Valid Subdomain obj, BindingResult result, Model m) {
+	@RequestMapping(value = "share", method = RequestMethod.POST)
+	public String share(@Valid Domain obj, BindingResult result, Model m) {
 		if (result.hasErrors()) {
 			m.addAttribute(result.getFieldErrors());
 		} else {
-			Long id = subdomainService.createSubdomain(obj);
-			m.addAttribute("subdomain", null);
+			Long id = domainService.createDomain(obj);
+			m.addAttribute("domain", null);
 			responseData(m, id);
 		}
 		return null;
-	}
-	
-	@RequestMapping("/valid")
-	public String checkSubdomain(@RequestParam("dnspodDomainId") String dnspodDomainId, @RequestParam("name") String name, Model m) {
-		responseResult(m, subdomainService.checkSubdomain(dnspodDomainId, name));
-		return "";
 	}
 }

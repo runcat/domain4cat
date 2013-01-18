@@ -30,7 +30,7 @@ import net.noday.d4c.service.DnsrecordService;
 import net.noday.d4c.service.SubdomainService;
 
 /**
- * domain4cat DnsRecordServiceImpl
+ * domain4cat DnsrecordServiceImpl
  *
  * @author <a href="http://www.noday.net">Noday</a>
  * @version , 2013-1-9
