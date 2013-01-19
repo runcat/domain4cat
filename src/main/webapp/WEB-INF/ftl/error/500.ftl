@@ -15,6 +15,9 @@
             <div class="grid">
             <h3>出错了</h3>
 				<p>${message}</p>
+				<#if href>
+				<a href="${href}">返回</a>
+				</#if>
             </div>
         </div>
     </div>

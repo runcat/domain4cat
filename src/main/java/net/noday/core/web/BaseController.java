@@ -133,6 +133,7 @@ public abstract class BaseController {
 	public ModelAndView resolveException(Exception e, WebRequest req) {
 		log.error(e.getMessage(), e);
 		ModelAndView m = new ModelAndView("error/500");
+		m.addObject("href", req.getHeader("referer"));
 		responseMsg(m, false, e.getMessage());
 		return m;
 	}

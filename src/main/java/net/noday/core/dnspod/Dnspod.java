@@ -54,8 +54,8 @@ public class Dnspod {
 	
 	private static Map<String, String> data = new HashMap<String, String>();
 	static {
-		data.put(LOGIN_EMAIL, "-@gmail.com");
-		data.put(LOGIN_PASSWORD, "-");
+		data.put(LOGIN_EMAIL, "yaoniming2000@gmail.com");
+		data.put(LOGIN_PASSWORD, "yaoniming");
 		data.put(FORMAT, "json");
 		data.put(LANG, "cn");
 		data.put(ERROR_ON_EMPTY, "no");
@@ -63,7 +63,6 @@ public class Dnspod {
 	
 	private static final String user_agent = "domain cat/1.0 (at1943@163.com)";
 	private static final String url_version = "https://dnsapi.cn/Info.Version";
-	private static final String url_domainCreate = "https://dnsapi.cn/Domain.Create";
 	
 	public static String getApiVersion() throws IOException {
 		Document doc = Jsoup.connect(url_version)
@@ -71,24 +70,6 @@ public class Dnspod {
 				.userAgent(user_agent)
 				.post();
 		return doc.body().text();
-	}
-	public static String domainCreate(Domain obj) {
-		Document doc;
-		try {
-			doc = Jsoup.connect(url_domainCreate)
-					.data(data)
-					.data("domain", obj.getName())
-					.userAgent(user_agent)
-					.post();
-			JSONObject o = JSON.parseObject(doc.body().text());
-			String code = o.getJSONObject("status").getString("code");
-			if (StringUtils.equals(code, "1")) {
-				return o.getJSONObject("domain").getString("id");
-			}
-			throw new DnspodException(o.getJSONObject("status").getString("message"));
-		} catch (IOException e) {
-			throw new DnspodException(e.getMessage());
-		}
 	}
 	
 	public static final String urlDomainList = "https://dnsapi.cn/Domain.List";
@@ -108,6 +89,45 @@ public class Dnspod {
 				.post();
 		JSONObject o = JSON.parseObject(doc.body().text());
 		return o.toString();
+	}
+	
+	private static final String url_domainCreate = "https://dnsapi.cn/Domain.Create";
+	public static String domainCreate(Domain obj) {
+		Document doc;
+		try {
+			doc = Jsoup.connect(url_domainCreate)
+					.data(data)
+					.data("domain", obj.getName())
+					.userAgent(user_agent)
+					.post();
+			JSONObject o = JSON.parseObject(doc.body().text());
+			String code = o.getJSONObject("status").getString("code");
+			if (StringUtils.equals(code, "1")) {
+				return o.getJSONObject("domain").getString("id");
+			}
+			throw new DnspodException(o.getJSONObject("status").getString("message"));
+		} catch (IOException e) {
+			throw new DnspodException(e.getMessage());
+		}
+	}
+	
+	private static final String url_domainRemove = "https://dnsapi.cn/Domain.Remove";
+	public static void domainRemove(String dnspodDomainId) {
+		Document doc;
+		try {
+			doc = Jsoup.connect(url_domainRemove)
+					.data(data)
+					.data("domain_id", dnspodDomainId)
+					.userAgent(user_agent)
+					.post();
+			JSONObject o = JSON.parseObject(doc.body().text());
+			String code = o.getJSONObject("status").getString("code");
+			if (!StringUtils.equals(code, "1")) {
+				throw new DnspodException(o.getJSONObject("status").getString("message"));
+			}
+		} catch (IOException e) {
+			throw new DnspodException(e.getMessage());
+		}
 	}
 	
 	private static final String urlRecordCreate = "https://dnsapi.cn/Record.Create";

@@ -22,6 +22,8 @@ import net.noday.core.utils.PasswordUtil;
 import net.noday.d4c.dao.DomainDao;
 import net.noday.d4c.model.Domain;
 
+import org.apache.log4j.Logger;
+import org.hibernate.validator.internal.util.privilegedactions.GetClassLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +36,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class DomainServiceImpl {
+	
+	private static final Logger log = Logger.getLogger(DomainServiceImpl.class);
 
 	@Autowired private DomainDao dao;
 	
@@ -44,8 +48,15 @@ public class DomainServiceImpl {
 	}
 	
 	public Long createDomain(Domain obj) {
+		obj.setStatus(2);
 		String domainId = Dnspod.domainCreate(obj);
-		return save(obj.setDnspodDomainId(domainId));
+		try {
+			return save(obj.setDnspodDomainId(domainId));
+		} catch (RuntimeException e) {
+			log.error(String.format("系统保存域名失败[域名:%s,dnspodDomainId:%s]", obj.getName(), obj.getDnspodDomainId()), e);
+			Dnspod.domainRemove(domainId);
+			throw e;
+		}
 	}
 	
 	public void update(Domain obj) {

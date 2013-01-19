@@ -163,6 +163,7 @@
 </div>
 <#include "footer.ftl">
 <script type="text/javascript" src="${contextPath}/js/carousel.js"></script>
+<script src="${contextPath}/js/input-control.js"></script>
 <script type="text/javascript">
 $(function(){
 	$("#btn_check").click(function() {

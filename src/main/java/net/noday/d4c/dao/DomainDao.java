@@ -47,7 +47,8 @@ public class DomainDao {
 	@Autowired private NamedParameterJdbcTemplate namedJdbc;
 	
 	public long save(Domain obj) {
-        String sql = "insert into domain(name,password,salt,dnspod_domain_id) values(:name,:password,:salt,:dnspodDomainId)";
+        String sql = "insert into domain(name,password,salt,dnspod_domain_id,status)" +
+        		" values(:name,:password,:salt,:dnspodDomainId,:status)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         namedJdbc.update(sql, new BeanPropertySqlParameterSource(obj), keyHolder);
         return keyHolder.getKey().longValue();

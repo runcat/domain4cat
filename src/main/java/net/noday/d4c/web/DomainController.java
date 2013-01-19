@@ -48,13 +48,18 @@ public class DomainController extends BaseController {
 	
 	@RequestMapping(value = "share", method = RequestMethod.POST)
 	public String share(@Valid Domain obj, BindingResult result, Model m) {
-		if (result.hasErrors()) {
-			m.addAttribute(result.getFieldErrors());
-		} else {
-			Long id = domainService.createDomain(obj);
-			m.addAttribute("domain", null);
-			responseData(m, id);
+		try {
+			if (result.hasErrors()) {
+				m.addAttribute(result.getFieldErrors());
+			} else {
+				Long id = domainService.createDomain(obj);
+				m.addAttribute("domain", null);
+				responseData(m, id);
+				return "redirect:/login";
+			}
+		} catch (Exception e) {
+			responseMsg(m, false, e.getMessage());
 		}
-		return null;
+		return "share";
 	}
 }
