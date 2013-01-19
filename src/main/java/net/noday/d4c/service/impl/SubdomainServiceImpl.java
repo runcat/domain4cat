@@ -109,7 +109,7 @@ public class SubdomainServiceImpl implements SubdomainService {
 	 * @see net.noday.d4c.service.impl.DomainService#findDomain()
 	 */
 	@Override
-	public List<Subdomain> findDomain() {
-		return dao.findDomain();
+	public List<Subdomain> findSubdomain(String dnspodDomainId) {
+		return dao.findSubdomain(dnspodDomainId);
 	}
 }

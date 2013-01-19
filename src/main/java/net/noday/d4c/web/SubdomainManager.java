@@ -82,7 +82,7 @@ public class SubdomainManager extends GeneralController<Subdomain, Long> {
 	@Override
 	public String list(Model m) {
 		responseData(m, recordService.findBySubdomainId(getUser().getId()));
-		return "main";
+		return "subdomain";
 	}
 	@Override
 	public String list(@PathVariable("index") int index, Model m) {

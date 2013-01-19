@@ -39,10 +39,14 @@ public interface SubdomainService {
 
 	public abstract Subdomain get(Long id);
 
-	public abstract List<Subdomain> findDomain();
-
 	Long createSubdomain(Subdomain obj);
 
 	boolean checkSubdomain(String dnspodDomainId, String name);
+
+	/**
+	 * @param dnspodDomainId
+	 * @return
+	 */
+	List<Subdomain> findSubdomain(String dnspodDomainId);
 
 }

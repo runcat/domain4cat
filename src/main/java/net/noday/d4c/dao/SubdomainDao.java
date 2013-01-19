@@ -68,9 +68,9 @@ public class SubdomainDao {
 		return jdbc.queryForInt(sql, name, dnspodDomainId) > 0;
 	}
 	
-	public List<Subdomain> findDomain() {
-		String sql = "select * from domain where status=1";
-		return jdbc.query(sql, new BeanPropertyRowMapper<Subdomain>(Subdomain.class));
+	public List<Subdomain> findSubdomain(String dnspodDomainId) {
+		String sql = "select * from subdomain where dnspod_domain_id=?";
+		return jdbc.query(sql, new BeanPropertyRowMapper<Subdomain>(Subdomain.class), dnspodDomainId);
 	}
 	
 	public Subdomain findUserBySubdomain(String subdomain) {
