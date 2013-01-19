@@ -65,7 +65,7 @@ public class DomainDao {
 	}
 	
 	public Domain findUserByDomain(String domain) {
-		String sql = "select * from domain d where d.fullname=? limit 1";
+		String sql = "select * from domain d where d.name=? limit 1";
 		Domain u = jdbc.queryForObject(sql, new BeanPropertyRowMapper<Domain>(Domain.class), domain);
 		return u;
 	}

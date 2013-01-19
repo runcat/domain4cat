@@ -28,21 +28,21 @@
                             <form id="login-form" action="${contextPath}/login" method="post">
                             	<div class="row">
 											<div class="input-control text span3">
-										        <input id="username" name="username" type="text" placeholder="域名" />
+										        <input id="username" name="username" type="text" placeholder="域名" tabindex="1" />
 										        <button class="helper"></button>
 										    </div>
 											<div class="input-control password span3">
-												<input id="password" name="password" type="password" placeholder="密码" /><button class="helper"></button>
+												<input id="password" name="password" type="password" placeholder="密码" tabindex="2" /><button class="helper"></button>
 											</div>
 											<label class="input-control checkbox">
-										        <input type="checkbox" name="rememberMe">
+										        <input type="checkbox" name="rememberMe" tabindex="3">
 										        <span class="helper">下次自动登录</span>
 										    </label>
                             	</div>
 									    <div class="row">
 									    	<span id="msg" class="span3">${shiroLoginFailure}</span>
 									    </div>
-									    <input id="btn_check" type="submit" value="管理"/>
+									    <input id="btn_check" type="submit" value="管理" tabindex="4"/>
                             </form>
                         </div>
                     </div>
