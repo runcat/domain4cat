@@ -97,7 +97,7 @@ public class AppDao {
 				initDB();
 			} else {
 				String version = jdbc.queryForObject("select a.version from app_config a limit 1", String.class);
-				if (!"1.0".equalsIgnoreCase(version)) {
+				if (!"1.1".equalsIgnoreCase(version)) {
 					updateDB("1_1");
 				}
 			}
