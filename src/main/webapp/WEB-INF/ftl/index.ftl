@@ -39,8 +39,8 @@
                                     <div class="slide" id="slide2" style="display: block; left: -580px; ">
                                         <h2 class="fg-color-darken">分享域名</h2>
                                         <p class="bg-color-red padding20 fg-color-white">
-                                            我想将我闲置的域名<strong>共享</strong>给大家用？<br>
-                                            分享功能尚未上线，可联系at1943@gmail.com完成分享。<br>
+                                            我想将我闲置的域名<strong><a href="${contextPath}/domain/share">共享</a></strong>给大家用？<br>
+                                            分享功能已经上线，任何问题可联系at1943@gmail.com。<br>
                                             分享前请考核以下分享条件：
                                         </p>
 
