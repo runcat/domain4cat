@@ -59,6 +59,11 @@ public class DomainDao {
 		return jdbc.queryForObject(sql, new BeanPropertyRowMapper<Domain>(Domain.class), id);
 	}
 	
+	public void updateDomainStatus(String dnspodDomainId) {
+		String sql = "update domain set status=1 where dnspod_domain_id=?";
+		jdbc.update(sql, dnspodDomainId);
+	}
+	
 	public List<Domain> findDomain() {
 		String sql = "select * from domain where status=1";
 		return jdbc.query(sql, new BeanPropertyRowMapper<Domain>(Domain.class));

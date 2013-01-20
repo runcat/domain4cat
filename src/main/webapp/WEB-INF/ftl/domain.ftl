@@ -24,13 +24,15 @@ background: url("${contextPath}/images/preloader-w8-line-black.gif");
 			<div class="grid">
 				<div class="row">
 					<div class="span12">
-						<h3 class="as-inline-block"><@shiro.principal/></h3>
 						<#if domain.status==0>
+						<h3 class="as-inline-block"><@shiro.principal/></h3>
 						<i class="icon-locked"></i>
 						<#elseif domain.status==1>
-						<i class="icon-unlocked"></i>
+						<h3 class="as-inline-block"><@shiro.principal/></h3>
+						<i class="icon-unlocked" title=""></i>
 						<#elseif domain.status==2>
-						<i class="icon-wrench"></i>
+						<h3 class="as-inline-block fg-color-red"><@shiro.principal/></h3>
+						<a id="check" title="点击诊断域名状态" href="#"><i class="icon-wrench"></i></a>
 						</#if>
 						<table class="hovered bordered striped">
 							<thead>
@@ -67,6 +69,32 @@ background: url("${contextPath}/images/preloader-w8-line-black.gif");
 </div>
 <#include "footer.ftl">
 <script type="text/javascript">
+$(function() {
+	$("#check").click(function() {
+		_this = $(this).find("i");
+		$.ajax({
+			url:"${contextPath}/admin/domain/status.json"
+			,data:{"dnspodDomainId":"${domain.dnspodDomainId}"}
+			,dataType:"json"
+			,beforeSend:function(XHR) {
+			}
+			,success:function(data, textStatus, jqXHR) {
+				if (data) {
+					if (data.data == "dnserror") {
+						alert("域名不可用，请在域名注册处修改dns");
+					} else if (data.data == "") {
+						_this.removeClass("icon-wrench");
+						_this.addClass("icon-unlocked");
+						$("h3.as-inline-block").removeClass("fg-color-red");
+						alert("域名可用");
+					} else if (data.data == "notexist") {
+						alert("域名不可用");
+					}
+				}
+			}
+		});
+	});
+});
 </script>
 </body>
 </html>

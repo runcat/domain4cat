@@ -12,6 +12,8 @@
 
         <ul class="menu">
             <li><a href="${cfg.hostUrl}${contextPath}">Home</a></li>
+            <li><a href="${contextPath}/domain/share">分享我的域名</a></li>
+        </ul>
             <#--
             <li data-role="dropdown">
                 <a href="#">Scaffolding</a>
@@ -55,8 +57,15 @@
                 </ul>
             </li>
 				-->
-            <li><a href="${contextPath}/login">管理我的域名</a></li>
-            <li><a href="${contextPath}/domain/share">我要分享域名</a></li>
+			<ul class="menu place-right">
+				<@shiro.guest>
+            <li><a href="${contextPath}/login">登录</a></li>
+				</@shiro.guest>
+				<@shiro.user>
+				<li class=""><a><@shiro.principal/></a></li>
+				<li><a href="${contextPath}/admin">管理</a></li>
+				<li><a href="${contextPath}/logout">退出</a></li>
+				</@shiro.user>
         </ul>
 
     </div>

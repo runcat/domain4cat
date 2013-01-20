@@ -22,8 +22,8 @@ import net.noday.core.utils.PasswordUtil;
 import net.noday.d4c.dao.DomainDao;
 import net.noday.d4c.model.Domain;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
-import org.hibernate.validator.internal.util.privilegedactions.GetClassLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,6 +57,14 @@ public class DomainServiceImpl {
 			Dnspod.domainRemove(domainId);
 			throw e;
 		}
+	}
+	
+	public String checkStatus(String dnspodDomainId) {
+		String ext_status = Dnspod.domainInfo(dnspodDomainId);
+		if (StringUtils.isBlank(ext_status)) {
+			dao.updateDomainStatus(dnspodDomainId);
+		}
+		return ext_status;
 	}
 	
 	public void update(Domain obj) {

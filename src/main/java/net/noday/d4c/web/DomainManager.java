@@ -17,12 +17,13 @@ package net.noday.d4c.web;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import net.noday.core.web.GeneralController;
 import net.noday.d4c.model.Domain;
@@ -103,5 +104,11 @@ public class DomainManager extends GeneralController<Domain, Long> {
 		List<Subdomain> subdomains = subdomainService.findSubdomain(domain.getDnspodDomainId());
 		m.addAttribute("subdomains", subdomains);
 		return "domain";
+	}
+	
+	@RequestMapping("status")
+	public String checkStatus(@RequestParam("dnspodDomainId") String dnspodDomainId, Model m) {
+		responseData(m, domainService.checkStatus(dnspodDomainId));
+		return "";
 	}
 }

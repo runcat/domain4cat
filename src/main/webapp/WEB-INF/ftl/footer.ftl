@@ -5,6 +5,7 @@
                     2013, 域猫 &copy; <a class="fg-color-white" href="http://www.noday.net" target="_blank">noday</a>
                 </span>
                 <span class="element">界面使用<a class="fg-color-white" target="_blank"> Metro UI CSS</a></span>
+                <span class="element">域名解析支持<a class="fg-color-white" target="_blank"> DNSPod</a></span>
             </div>
         </div>
     </div>

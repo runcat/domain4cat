@@ -91,6 +91,26 @@ public class Dnspod {
 		return o.toString();
 	}
 	
+	private static final String url_domainInfo = "https://dnsapi.cn/Domain.Info";
+	public static String domainInfo(String dnspodDomainId) {
+		Document doc;
+		try {
+			doc = Jsoup.connect(url_domainInfo)
+					.data(data)
+					.data("domain_id", dnspodDomainId)
+					.userAgent(user_agent)
+					.post();
+			JSONObject o = JSON.parseObject(doc.body().text());
+			String code = o.getJSONObject("status").getString("code");
+			if (StringUtils.equals(code, "1")) {
+				return o.getJSONObject("domain").getString("ext_status");
+			}
+			throw new DnspodException(o.getJSONObject("status").getString("message"));
+		} catch (IOException e) {
+			throw new DnspodException(e.getMessage());
+		}
+	}
+	
 	private static final String url_domainCreate = "https://dnsapi.cn/Domain.Create";
 	public static String domainCreate(Domain obj) {
 		Document doc;
@@ -204,11 +224,6 @@ public class Dnspod {
 	}
 	
 	public static void main(String[] args) {
-		try {
-			System.out.println(domainList());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		domainInfo("2723144");
 	}
 }
