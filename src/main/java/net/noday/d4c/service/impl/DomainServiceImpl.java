@@ -59,7 +59,7 @@ public class DomainServiceImpl {
 		}
 	}
 	
-	public String checkStatus(String dnspodDomainId) {
+	public String updateStatus(String dnspodDomainId) {
 		String ext_status = Dnspod.domainInfo(dnspodDomainId);
 		if (StringUtils.isBlank(ext_status)) {
 			dao.updateDomainStatus(dnspodDomainId);

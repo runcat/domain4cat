@@ -108,7 +108,7 @@ public class DomainManager extends GeneralController<Domain, Long> {
 	
 	@RequestMapping("status")
 	public String checkStatus(@RequestParam("dnspodDomainId") String dnspodDomainId, Model m) {
-		responseData(m, domainService.checkStatus(dnspodDomainId));
+		responseData(m, domainService.updateStatus(dnspodDomainId));
 		return "";
 	}
 }
